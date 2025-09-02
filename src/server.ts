@@ -1,5 +1,11 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
+import { convertCsvToJson } from "./utils/csv-to-json";
+
+import path from "path";
+
+import { DriversModel } from "./models/drivers-model";
+import { loadDrivers, repositoryListDrivers } from "./repository/drivers/drivers-repository";
 
 const server = fastify({ logger: true });
 
@@ -22,42 +28,118 @@ const teams = [
   { id: 12, name: "Scuderia Toro Rosso", base: "Faenza, Italy" },
 ];
 
-const drivers = [
-  { id: 1, name: "Max Verstappen", team: "Red Bull Racing" },
-  { id: 2, name: "Lewis Hamilton", team: "Ferrari" },
-  { id: 2, name: "Lando Norris", team: "McLaren" },
-];
+// const drivers = [
+//   { id: 1, name: "Max Verstappen", team: "Red Bull Racing" },
+//   { id: 2, name: "Lewis Hamilton", team: "Ferrari" },
+//   { id: 2, name: "Lando Norris", team: "McLaren" },
+// ];
+// const pathData = path.join(__dirname, "./repository/csv/drivers.csv");
+// console.log(pathData);
 
-server.get("/teams", async (request, response) => {
+// // loading drivers from csv file
+// let drivers: DriversModel[] = [];
+// loadDrivers(pathData)
+//   .then((loadDrivers: DriversModel[]) => {
+//     drivers = loadDrivers;
+//     // if (drivers.length > 0) {
+//     //   console.log(drivers[0])
+//     //   console.log(drivers[1])
+//     //   console.log(drivers[2])
+//     // }    
+//   })
+//   .catch((error: any) => console.error('Error while converting CSV: ', error));
+
+ 
+
+server.get("/teams", async (request, response) => {  
   response.type("application/json").code(200);
   return { teams };
 });
 
-server.get("/drivers", async (request, response) => {
-  response.type("application/json").code(200);
-  return { drivers };
-});
 
-interface DriverParams {
-  id: string;
-}
 
-server.get<{ Params: DriverParams }>(
-  "/drivers/:id",
-  async (request, response) => {
-    const id = parseInt(request.params.id);
-    const driver = drivers.find((d) => d.id === id);
 
-    if (!driver) {
-      response.type("application/json").code(404);
-      return { message: "Driver Not Found" };
-    } else {
-      response.type("application/json").code(200);
-      return { driver };
-    }
-  }
-);
+// // GET - Find drivers by id
+// server.get<{ Params: DriverParams }>(
+//   "/drivers/id/:driverId",
+//   async (request, response) => {   
+//     // partially initialized variable
+//     let driver:Partial<DriversModel> = {};
+//     if (drivers.length > 0) { 
+//       const driverId = parseInt(request.params.driverId) || 0;
+//       driver = drivers.find((driver) => {      
+        
+//         if (driverId > 0) {
+//           if (!(driver.driverId === driverId)) {
+//             return false;
+//             //console.info(`${d.driverId} - ${driverId}`);
+//           } else {
+//             return true;
+//           }
+//         }
+//       }) as DriversModel;
+//     }
+
+//     if (!(driver)) {
+//       response.type("application/json").code(404);
+//       return { message: "Driver Not Found" };
+//     } else {
+//       response.type("application/json").code(200);
+//       return { "drivers": driver };
+//     }
+//   }
+// );
+
+// // GET - Find drivers using query string parameters
+// server.get<{ Params: DriverParams }>(
+//   "/drivers/find",
+//   async (request, response) => {
+//     //console.log(JSON.stringify(request.query));    
+//     //const queryKeys = [];
+//     for (const key in request.query as any) {
+//       if (Object.prototype.hasOwnProperty.call(request.query, key)) { // Important for safety
+//         //queryKeys.push(key);      
+//       }
+//     }
+//     //console.log('All query keys:', queryKeys);
+//     const driverId = parseInt(request.params.driverId) || 0;
+//     //const forename = request.params.forename || "";
+//     const driver = drivers.filter((driver) => {
+//       //let allMatch = true;
+      
+//       if (driverId > 0) {
+//         if (!(driver.driverId === driverId)) {
+//           return false;
+//           //console.info(`${d.driverId} - ${driverId}`);
+//         } else {
+//           return true;
+//         }
+//       }
+
+//       // if (forename.length > 0) {
+//       //   if (!(d.forename.includes(forename))) {
+//       //     allMatch = false;
+//       //     console.log(`${d.forename} - ${forename} - ${d.forename.includes(forename)} - ${forename !== ""}`);
+//       //   }
+//       // }
+
+//       //return allMatch;
+//     });
+
+
+//     if (!driver) {
+//       response.type("application/json").code(404);
+//       return { message: "Driver Not Found" };
+//     } else {
+//       response.type("application/json").code(200);
+//       return { driver };
+//     }
+//   }
+// );
 
 server.listen({ port: 3333 }, () => {
   console.log("Server init");
 });
+
+
+
