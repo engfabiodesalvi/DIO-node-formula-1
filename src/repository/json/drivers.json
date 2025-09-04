@@ -1,6 +1,17 @@
 {
   "drivers": [
     {
+      "driverId": 3,
+      "driverRef": "rosberg",
+      "number": 6,
+      "code": "ROS",
+      "forename": "Nico",
+      "surname": "Rosberg",
+      "dob": "1985-06-27",
+      "nationality": "German",
+      "url": "http://en.wikipedia.org/wiki/Nico_Rosberg"
+    },
+    {
       "driverId": 20,
       "driverRef": "vettel",
       "number": 5,
@@ -43,39 +54,6 @@
       "dob": "1975-06-30",
       "nationality": "German",
       "url": "http://en.wikipedia.org/wiki/Ralf_Schumacher"
-    },
-    {
-      "driverId": 24,
-      "driverRef": "liuzzi",
-      "number": -1,
-      "code": "LIU",
-      "forename": "Vitantonio",
-      "surname": "Liuzzi",
-      "dob": "1980-08-06",
-      "nationality": "Italian",
-      "url": "http://en.wikipedia.org/wiki/Vitantonio_Liuzzi"
-    },
-    {
-      "driverId": 25,
-      "driverRef": "wurz",
-      "number": -1,
-      "code": "WUR",
-      "forename": "Alexander",
-      "surname": "Wurz",
-      "dob": "1974-02-15",
-      "nationality": "Austrian",
-      "url": "http://en.wikipedia.org/wiki/Alexander_Wurz"
-    },
-    {
-      "driverId": 26,
-      "driverRef": "speed",
-      "number": -1,
-      "code": "SPE",
-      "forename": "Scott",
-      "surname": "Speed",
-      "dob": "1983-01-24",
-      "nationality": "American",
-      "url": "http://en.wikipedia.org/wiki/Scott_Speed"
     },
     {
       "driverId": 27,
