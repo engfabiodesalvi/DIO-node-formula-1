@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import fsPromises from "fs/promises";
 import * as csv from 'csv-parse';
 import path from 'path';
-import { CircuitsModel } from '../../models/circuits-model';
+import { CircuitsModel } from '../../models/circuit-model';
 
 export const language = "utf-8";
 

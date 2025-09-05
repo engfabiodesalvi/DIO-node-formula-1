@@ -1,4 +1,4 @@
-export interface CircuitsModel {
+export interface CircuitModel {
     "circuitId": number,
     "circuitRef": string,
     "name": string,

@@ -4,7 +4,7 @@ import { DriverParams } from "../models/driver-parameters-model";
 import { repositoryNewDriver } from "../repository/drivers/add-driver-repository";
 import { repositoryDeleteDriver } from "../repository/drivers/delete-driver-repositry";
 import { repositoryEditDriver } from "../repository/drivers/edit-driver-repository";
-import { repositoryFindDriverById } from "../repository/drivers/find-drivers-id-repository";
+import { repositoryFindDriverById } from "../repository/drivers/find-driver-id-repository";
 import { repositoryUpsertDriver } from "../repository/drivers/upsert-drivers-repositry";
 import { repositoryDeleteDriverById } from "../repository/drivers/delete-driver-id-repository";
 

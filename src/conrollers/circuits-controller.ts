@@ -1,18 +1,20 @@
 import { FastifyInstance } from "fastify";
 import { repositoryListCircuits } from "../repository/circuits/list-circuits-repository";
+import { CircuitsParams } from "../models/circuit-parameters-model";
+import { repositoryFindCircuitById } from "../repository/circuits/find-circuit-by-id-repository";
 
 export const circuitsController = async (server: FastifyInstance) => {
 
-  // GET - List all drivers and Find drivers using query string parameters
+  // GET - List all circuits and Find circuits using query string parameters
   server.get("/circuits",  async (request, response) =>
       await repositoryListCircuits(request, response)
   );  
       
-//   // GET - Find drivers by id
-//   server.get<{Params: DriverParams}>( "/drivers/id/:driverId",
-//     async (request, response) => 
-//       await repositoryFindDriverById(request, response)
-//   );
+  // GET - Find circuits by id
+  server.get<{Params: CircuitsParams}>( "/circuits/id/:circuitId",
+    async (request, response) => 
+      await repositoryFindCircuitById(request, response)
+  );
 
 //   // POST - Create/insert new driver
 //   server.post(
