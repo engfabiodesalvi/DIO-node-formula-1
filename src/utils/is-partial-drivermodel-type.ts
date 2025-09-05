@@ -10,14 +10,16 @@ export const isPartialDriverModel = async (
     // DriverModel must have a defined driverId
     if (!Array.isArray(driverModel) &&
             driverModel !== undefined &&
-            typeof driverModel.driverId === 'number') {
+            typeof driverModel.driverId === 'number' &&
+            Number.isInteger(driverModel.driverId)) {
             
         countKeys--; // typeof driverModel.driverId === 'number')
 
         if (typeof driverModel.driverRef === 'string')
             countKeys--;
 
-        if (typeof driverModel.number === 'number')
+        if (typeof driverModel.number === 'number' && 
+            Number.isInteger(driverModel.number))
             countKeys--;     
 
         if (typeof driverModel.code === 'string')

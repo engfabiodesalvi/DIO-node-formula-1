@@ -21,17 +21,29 @@ export const repositoryFindDriverById = async (
             let driver:Partial<DriverModel> = {};
             if (listDrivers.length > 0) { 
                 const driverParams = request.params as DriverParams;
-                const driverId = parseInt(driverParams.driverId) || 0;
-                driver = listDrivers.find((driverItem) => {              
-                    if (driverId > 0) {
-                        if (!(driverItem.driverId === driverId)) {
-                            console.info(`${driverItem.driverId} - ${driverId}`);
-                            return false;            
-                        } else {
-                        return true;
-                        }
+                if (driverParams.driverId) {
+                    const driverId = parseInt(driverParams.driverId) || 0;
+                    if ((driverId > 0) && Number.isInteger(parseFloat(driverParams.driverId) || 0)) {
+                        driver = listDrivers.find((driverItem) => {              
+                            if (driverId > 0) {
+                                if (!(driverItem.driverId === driverId)) {
+                                    console.info(`${driverItem.driverId} - ${driverId}`);
+                                    return false;            
+                                } else {
+                                    return true;
+                                }
+                            } 
+                        }) as DriverModel;
+                    } else {
+                        response.type("application/json").code(400); // bad request
+                        return {
+                            "message": `[driverId: ${driverParams.driverId}] must be a positive integer number!`};                              
                     }
-                }) as DriverModel;
+
+                } else {
+                    response.type("application/json").code(400); // bad request
+                    return {"message": "Send driverId to be find!"} 
+                }
             }
 
             if (!(driver)) {

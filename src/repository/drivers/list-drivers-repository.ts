@@ -30,6 +30,7 @@ export const repositoryListDrivers = async (
             //console.log(JSON.stringify(request.body, null, 2)); 
 
             //console.log(`${typeof(driverId) === 'string'}`)
+            //console.log(`${Number.isInteger(parseFloat(driverId))} - ${driverId}`);
 
             const drivers = listDrivers.filter((driverItem) => {
                 let allMatch = true;
@@ -37,7 +38,8 @@ export const repositoryListDrivers = async (
                 // Comparing values
                 if (driverId) {
                     if (!(driverItem.driverId === parseInt(driverId)) ||                
-                        !((parseInt(driverId) > 0))) {
+                        !((parseInt(driverId) > 0)) ||
+                        !(Number.isInteger(parseFloat(driverId)))) {
                         allMatch = false;
                     }
                 }
@@ -50,7 +52,8 @@ export const repositoryListDrivers = async (
 
                 if (number) {
                     if (!(driverItem.number === parseInt(number)) ||
-                    !(parseInt(number) > 0)) {
+                    !(parseInt(number) > 0) ||
+                    !Number.isInteger(parseFloat(number))) {
                         allMatch = false;
                     }
                 }

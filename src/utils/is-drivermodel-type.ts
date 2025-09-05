@@ -8,9 +8,9 @@ export const isDriverModel = async (
 
     if (!Array.isArray(newDriver) &&
             newDriver !== undefined &&
-            typeof newDriver.driverId === 'number' &&
+            typeof newDriver.driverId === 'number' && Number.isInteger(newDriver.driverId) &&
             typeof newDriver.driverRef === 'string' &&
-            typeof newDriver.number === 'number' &&
+            typeof newDriver.number === 'number' && Number.isInteger(newDriver.number) &&
             typeof newDriver.code === 'string' &&
             typeof newDriver.forename === 'string' &&
             typeof newDriver.surname === 'string' &&
