@@ -77,7 +77,7 @@ export const repositoryUpsertDriver = async (
                                 
                                 // if ok return the item                    
                                 if (foundDriver.length === 0) {
-                                    console.log("item deletado");
+                                    console.log("item não inserido");
                                     response.type("application/json").code(500); // internal server error  
                                     return {
                                         "message": `[driverId: ${upsertDriver.driverId}] não inserido!`,
