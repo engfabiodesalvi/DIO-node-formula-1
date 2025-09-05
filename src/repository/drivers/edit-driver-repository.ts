@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { listDrivers, loadDriversJsonFile, pathDataJson, saveExtDriversToJsonFile, sortListDrivers } from "./load-drivers-repository";
+import { listDrivers, loadDriversJsonFile, pathDriversDataJson, saveExtDriversToJsonFile, sortListDrivers } from "./load-drivers-repository";
 import { DriverModel } from "../../models/driver-model";
 import { isDriverModel } from "../../utils/is-drivermodel-type";
 import { isPartialDriverModel } from "../../utils/is-partial-drivermodel-type";
@@ -59,8 +59,8 @@ export const repositoryEditDriver = async (
                             // ascendant order drivers 
                             await sortListDrivers();
                             // save insert/edit data to json file
-                            await saveExtDriversToJsonFile(pathDataJson, listDrivers);
-                            await loadDriversJsonFile(pathDataJson);       
+                            await saveExtDriversToJsonFile(pathDriversDataJson, listDrivers);
+                            await loadDriversJsonFile(pathDriversDataJson);       
                             
                             // find for inserted/edited driver
                             let foundDriver = listDrivers.filter(

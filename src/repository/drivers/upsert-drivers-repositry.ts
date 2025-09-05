@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { DriverModel } from "../../models/driver-model";
 import { isDriverModel } from "../../utils/is-drivermodel-type";
-import { listDrivers, loadDriversJsonFile, pathDataJson, saveExtDriversToJsonFile, sortListDrivers } from "./load-drivers-repository";
+import { listDrivers, loadDriversJsonFile, pathDriversDataJson, saveExtDriversToJsonFile, sortListDrivers } from "./load-drivers-repository";
 
 // PUT - (Upsert) Edit or inser new driver
 export const repositoryUpsertDriver = async (
@@ -61,8 +61,8 @@ export const repositoryUpsertDriver = async (
                             // ascendant order drivers 
                             await sortListDrivers();
                             // save insert/edit data to json file
-                            await saveExtDriversToJsonFile(pathDataJson, listDrivers);
-                            await loadDriversJsonFile(pathDataJson);       
+                            await saveExtDriversToJsonFile(pathDriversDataJson, listDrivers);
+                            await loadDriversJsonFile(pathDriversDataJson);       
                             
                             // find for inserted/edited driver
                             let foundDriver = listDrivers.filter(

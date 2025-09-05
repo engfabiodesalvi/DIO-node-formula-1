@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { DriverModel } from "../../models/driver-model";
-import { listDrivers, loadDriversJsonFile, pathDataJson, saveDriversToJsonFile, saveExtDriversToJsonFile, sortListDrivers } from "./load-drivers-repository";
+import { listDrivers, loadDriversJsonFile, pathDriversDataJson, saveDriversToJsonFile, saveExtDriversToJsonFile, sortListDrivers } from "./load-drivers-repository";
 import { isDriverModel } from "../../utils/is-drivermodel-type";
 
 // POST - Create/insert new driver
@@ -42,8 +42,8 @@ export const repositoryNewDriver = async (
                             // ascendant order drivers 
                             await sortListDrivers();
                             // save new data to json file
-                            await saveExtDriversToJsonFile(pathDataJson, listDrivers);
-                            await loadDriversJsonFile(pathDataJson);      
+                            await saveExtDriversToJsonFile(pathDriversDataJson, listDrivers);
+                            await loadDriversJsonFile(pathDriversDataJson);      
                                         
                             //listDrivers = listDrivers.sort((a, b) => a.driverId - b.driverId);
                             // verify if new item was inserted

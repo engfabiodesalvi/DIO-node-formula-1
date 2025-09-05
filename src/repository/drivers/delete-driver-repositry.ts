@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { DriverModel } from "../../models/driver-model";
-import { listDrivers, loadDriversJsonFile, pathDataJson, saveExtDriversToJsonFile } from "./load-drivers-repository";
+import { listDrivers, loadDriversJsonFile, pathDriversDataJson, saveExtDriversToJsonFile } from "./load-drivers-repository";
 import { isPartialDriverModel } from "../../utils/is-partial-drivermodel-type";
 
 // DELETE - Delete a driver
@@ -52,8 +52,8 @@ export const repositoryDeleteDriver = async (
                                     (itemDriver)=> itemDriver.driverId !== deleteDriver.driverId);
                                                                 
                                 // save new data to json file
-                                await saveExtDriversToJsonFile(pathDataJson, newListDrivers);
-                                await loadDriversJsonFile(pathDataJson);
+                                await saveExtDriversToJsonFile(pathDriversDataJson, newListDrivers);
+                                await loadDriversJsonFile(pathDriversDataJson);
 
                                 // find for deleted driver
                                 foundDriver = listDrivers.filter(

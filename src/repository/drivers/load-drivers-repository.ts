@@ -2,18 +2,15 @@ import * as fs from 'fs';
 import fsPromises from "fs/promises";
 import * as csv from 'csv-parse';
 import { DriverModel } from '../../models/driver-model';
-import { FastifyReply, FastifyRequest } from 'fastify';
 import path from 'path';
-import { DriverParams } from '../../models/driver-parameters-model';
-import { fileURLToPath } from 'url';
 
 export const language = "utf-8";
 
 // Path for csv driver file
-export const pathDataCsv = path.join(__dirname, "../csv/drivers.csv");
+export const pathDriversDataCsv = path.join(__dirname, "../database/csv/drivers.csv");
 // Path for json driver file
-export const pathDataJson = path.join(__dirname, "../json/drivers.json");
-console.log(pathDataCsv);
+export const pathDriversDataJson = path.join(__dirname, "../database/json/drivers.json");
+console.log(pathDriversDataCsv);
 
 // Drivers data
 export let listDrivers: DriverModel[] = [];
@@ -74,7 +71,7 @@ export const loadDriversCsvFile = async(filePathCsv: string, filePathJson: strin
     .catch((error: any) => console.error('Error while converting CSV: ', error));
 }
 
-// lading drives from json file
+// loading drives from json file
 export const loadDriversJsonFile = async(filePathJson: string) => {
   
     const rawData = fsPromises.readFile(filePathJson, language);
@@ -121,12 +118,12 @@ export const saveExtDriversToJsonFile = async(filePath: string, driversModel: Dr
 }
 
 // Verify if json file exists!
-if (fs.existsSync(pathDataJson)) {
+if (fs.existsSync(pathDriversDataJson)) {
     // Load data from json file
-    loadDriversJsonFile(pathDataJson)
+    loadDriversJsonFile(pathDriversDataJson)
     console.log("File exists.");
 } else {
     // Create json file from csv file.
-    loadDriversCsvFile(pathDataCsv, pathDataJson);
+    loadDriversCsvFile(pathDriversDataCsv, pathDriversDataJson);
     console.log("File does not exists.");
 }
