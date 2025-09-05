@@ -66,7 +66,7 @@ export const repositoryEditDriver = async (
                             let foundDriver = listDrivers.filter(
                                 (itemDriver)=> {
                                     if (itemDriver.driverId === editDriver.driverId) {
-                                        console.log('Driver encontrado!');
+                                        console.log('Driver found!');
                                         // load all data
                                         editDriver = itemDriver;
                                         return true;
@@ -77,38 +77,38 @@ export const repositoryEditDriver = async (
                                 
                                 // if ok return the item                    
                                 if (foundDriver.length === 0) {
-                                    console.log("item não editado");
+                                    console.log("Driver wasn't edited!");
                                     response.type("application/json").code(500); // internal server error  
                                     return {
-                                        "message": `[driverId: ${editDriver.driverId}] não editado!`,
+                                        "message": `[driverId: ${editDriver.driverId}] wasn't edited!`,
                                         "editDriver": editDriver};
                                 } else {
                                     response.type("application/json").code(200); // Ok
                                     return {
-                                        "message": `[driverId: ${editDriver.driverId}] editado!`,
+                                        "message": `[driverId: ${editDriver.driverId}] edited!`,
                                         "upsertDriver": editDriver};                        
                                 }                            
                         
                         } else {
                             response.type("application/json").code(400); // bad request
                             return {
-                                "message": `[driverId: ${editDriver.driverId}] deve ser um número positivo!`,
-                                "edittDriver": editDriver};                
+                                "message": `[driverId: ${editDriver.driverId}] must be a positive number!`,
+                                "editDriver": editDriver};                
                         }
 
                     } else {
                         response.type("application/json").code(400); // bad request
-                        return {"message": "Formato incorreto!"}              
+                        return {"message": "Incorrect format!"}              
                     }                        
                     
                 } else {
                     response.type("application/json").code(400); // bad request
-                    return {"message": "Envie os dados do piloto a ser editado!"}              
+                    return {"message": "Send driver data to be edited!"}              
                 }
 
             } else {
                 response.type("application/json").code(400); // bad request
-                return {"message": "Mensagem vazia!"}              
+                return {"message": "Empty body!"}              
             }                
             
         } else {

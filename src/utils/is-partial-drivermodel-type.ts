@@ -7,6 +7,7 @@ export const isPartialDriverModel = async (
     let isPartialTypeOfDriverModel = false;
     let countKeys = Object.keys(driverModel as DriverModel).length
 
+    // DriverModel must have a defined driverId
     if (!Array.isArray(driverModel) &&
             driverModel !== undefined &&
             typeof driverModel.driverId === 'number') {
