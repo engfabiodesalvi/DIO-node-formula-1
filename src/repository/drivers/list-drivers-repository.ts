@@ -45,7 +45,8 @@ export const repositoryListDrivers = async (
                 }
 
                 if (driverRef?.length > 0) {
-                    if(!(driverItem.driverRef.includes(driverRef))) {
+                    if(!(driverItem.driverRef.toLocaleLowerCase()
+                        .includes(driverRef.toLowerCase()))) {
                         allMatch = false;
                     }
                 }
@@ -59,19 +60,22 @@ export const repositoryListDrivers = async (
                 }
 
                 if (code?.length > 0) {
-                    if(!(driverItem.code.includes(code))) {
+                    if(!(driverItem.code.toLocaleLowerCase()
+                        .includes(code.toLowerCase()))) {
                         allMatch = false;
                     }
                 }     
                 
                 if (forename?.length > 0) {
-                    if(!(driverItem.forename.includes(forename))) {
+                    if(!(driverItem.forename.toLocaleLowerCase()
+                        .includes(forename.toLowerCase()))) {
                         allMatch = false;
                     }
                 }         
 
                 if (surname?.length > 0) {
-                    if(!(driverItem.surname.includes(surname))) {
+                    if(!(driverItem.surname.toLocaleLowerCase()
+                        .includes(surname.toLowerCase()))) {
                         allMatch = false;
                     }
                 }  
@@ -83,13 +87,15 @@ export const repositoryListDrivers = async (
                 }          
 
                 if (nationality?.length > 0) {
-                    if(!(driverItem.nationality.includes(nationality))) {
+                    if(!(driverItem.nationality.toLowerCase()
+                        .includes(nationality.toLowerCase()))) {
                         allMatch = false;
                     }
                 }   
                 
                 if (url?.length > 0) {
-                    if(!(driverItem.url.includes(url))) {
+                    if(!(driverItem.url.toLowerCase()
+                        .includes(url.toLowerCase()))) {
                         allMatch = false;
                     }
                 }           

@@ -59,7 +59,7 @@ export const repositoryDeleteDriver = async (
                                 foundDriver = listDrivers.filter(
                                     (itemDriver)=> {
                                         if (itemDriver.driverId === deleteDriver.driverId) {
-                                            console.log('Driver encontrado!');
+                                            console.log('Driver found!');
                                             return true;
                                         }else{
                                             return false;
@@ -68,42 +68,42 @@ export const repositoryDeleteDriver = async (
 
                                 // if ok return the item                    
                                 if (foundDriver.length === 0) {
-                                    console.log("item deletado");
+                                    console.log("Driver deleted");
                                     response.type("application/json").code(200); // Ok                                    
                                     return {
-                                        "message": `[driverId: ${deleteDriver.driverId}] deletado!`,
+                                        "message": `[driverId: ${deleteDriver.driverId}] deleted!`,
                                         "deleteDriver": deleteDriver};
                                 } else {
                                     response.type("application/json").code(500); // internal server error
                                     return {
-                                        "message": `[driverId: ${deleteDriver.driverId}] não deletado!`,
+                                        "message": `[driverId: ${deleteDriver.driverId}] wasn't deleted!`,
                                         "deleteDriver": deleteDriver};                        
                                 }
                             } else {
                                 // driver alredy inserted.
                                 response.type("application/json").code(404); // not fund
                                 return {
-                                    "message": `[driverId: ${deleteDriver.driverId}] não encontrado!`,
+                                    "message": `[driverId: ${deleteDriver.driverId}] wasn't found!`,
                                     "deleteDriver": deleteDriver};
                             }
                         } else {
                             response.type("application/json").code(400); // bad request
                             return {
-                                "message": `[driverId: ${deleteDriver.driverId}] deve ser um número positivo!`,
+                                "message": `[driverId: ${deleteDriver.driverId}] must be a positive number!`,
                                 "deleteDriver": deleteDriver};                
                         }
 
                     } else {
                         response.type("application/json").code(400); // bad request
-                        return {"message": "Formato incorreto!"}              
+                        return {"message": "Incorrect format!"}              
                     }
                 } else {
                     response.type("application/json").code(400); // bad request
-                    return {"message": "Envie o driverId a ser deletado!"}              
+                    return {"message": "Send driverId to be deleted!"}              
                 }
             } else {
                 response.type("application/json").code(400); // bad request
-                return {"message": "Mensagem vazia"}              
+                return {"message": "Empty body!"}              
             }
         //return {"message": "Bearer Token ok!", newDriver};
         } else {
