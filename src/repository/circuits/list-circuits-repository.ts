@@ -72,35 +72,53 @@ export const repositoryListCircuits = async (
                     }
                 }
                 
-                //vetLat = [minLat, maxLat]
+                // vetLat = [minLat, maxLat]
                 if (lat) {
                     const vetLat = lat.split(",");
-                    if (typeof(vetLat) === 'object' && vetLat.length === 2) {
+                    if (vetLat.length === 1) {
+                        if (!(circuitItem.lat === parseFloat(vetLat))) {
+                                allMatch = false;
+                        } 
+                    } else if (vetLat.length === 2) {
                         if (!(circuitItem.lat >= parseFloat(vetLat[0]) &&
                             circuitItem.lat <= parseFloat(vetLat[1]))) {
                                 allMatch = false;
                         }                        
                     } else {
-                        
+                        allMatch = false;
                     }
-
-
-                    // if (!(circuitItem.lat === parseFloat(lat)) ||                    
-                    // !Number.isFinite(parseFloat(lat))) {
-                    //     allMatch = false;
-                    // }
                 }
 
+                // vetlng = [minLng, maxLng]
                 if (lng) {
-                    if (!(circuitItem.lng === parseFloat(lng)) ||                    
-                    !Number.isFinite(parseFloat(lng))) {
+                    const vetLng = lng.split(",");
+                    if (vetLng.length === 1) {
+                        if (!(circuitItem.lng === parseFloat(vetLng))) {
+                                allMatch = false;
+                        } 
+                    } else if (vetLng.length === 2) {
+                        if (!(circuitItem.lng >= parseFloat(vetLng[0]) &&
+                            circuitItem.lng <= parseFloat(vetLng[1]))) {
+                                allMatch = false;
+                        }                        
+                    } else {
                         allMatch = false;
                     }
                 }                
                 
+                // vetAlt = [minAlt, mxAlt]
                 if (alt) {
-                    if (!(circuitItem.alt === parseInt(alt)) ||                
-                        !(Number.isInteger(parseFloat(alt)))) {
+                    const vetAlt = alt.split(",");
+                    if (vetAlt.length === 1) {
+                        if (!(circuitItem.alt === parseInt(vetAlt))) {
+                                allMatch = false;
+                        } 
+                    } else if (vetAlt.length === 2) {
+                        if (!(circuitItem.alt >= parseInt(vetAlt[0]) &&
+                            circuitItem.alt <= parseInt(vetAlt[1]))) {
+                                allMatch = false;
+                        }                        
+                    } else {
                         allMatch = false;
                     }
                 }
