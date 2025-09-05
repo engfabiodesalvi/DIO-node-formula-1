@@ -1,7 +1,8 @@
 import { FastifyInstance } from "fastify";
 import { repositoryListCircuits } from "../repository/circuits/list-circuits-repository";
-import { CircuitsParams } from "../models/circuit-parameters-model";
+import { CircuitParams } from "../models/circuit-parameters-model";
 import { repositoryFindCircuitById } from "../repository/circuits/find-circuit-by-id-repository";
+import { repositoryDeleteCircuitById } from "../repository/circuits/delete-circuit-by-id-repository";
 
 export const circuitsController = async (server: FastifyInstance) => {
 
@@ -11,17 +12,17 @@ export const circuitsController = async (server: FastifyInstance) => {
   );  
       
   // GET - Find circuits by id
-  server.get<{Params: CircuitsParams}>( "/circuits/id/:circuitId",
+  server.get<{Params: CircuitParams}>( "/circuits/id/:circuitId",
     async (request, response) => 
       await repositoryFindCircuitById(request, response)
   );
 
-//   // POST - Create/insert new driver
-//   server.post(
-//     "/driver",
-//     async (request, response) =>
-//       await repositoryNewDriver(request, response)
-//   );
+  // // POST - Create/insert new circuit
+  // server.post(
+  //   "/circuit",
+  //   async (request, response) =>
+  //     await repositoryNewCircuit(request, response)
+  // );
 
 //   // PUT - (Upsert) Edit or insert new driver
 //   server.put(
@@ -37,18 +38,18 @@ export const circuitsController = async (server: FastifyInstance) => {
 //     await repositoryEditDriver(request, response)
 //   );
 
-//   // DELETE - Delete a driver
-//   server.delete(
-//     "/driver",
-//     async (request, response) =>
-//       await repositoryDeleteDriver(request, response)
-//   );
+  // // DELETE - Delete a circuit
+  // server.delete(
+  //   "/circuit",
+  //   async (request, response) =>
+  //     await repositoryDeleteCircuit(request, response)
+  // );
 
-//   // DELETE - Delete a driver by id
-//   server.delete<{Params: DriverParams}>(
-//     "/driver/id/:driverId",
-//     async (request, response) =>
-//       await repositoryDeleteDriverById(request, response)
-//   );
+  // DELETE - Delete a circuit by id
+  server.delete<{Params: CircuitParams}>(
+    "/circuit/id/:circuitId",
+    async (request, response) =>
+      await repositoryDeleteCircuitById(request, response)
+  );
 
 }

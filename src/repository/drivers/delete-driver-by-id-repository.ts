@@ -1,7 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { DriverModel } from "../../models/driver-model";
 import { listDrivers, loadDriversJsonFile, pathDriversDataJson, saveExtDriversToJsonFile } from "./load-drivers-repository";
-import { isPartialDriverModel } from "../../utils/is-partial-drivermodel-type";
 import { DriverParams } from "../../models/driver-parameters-model";
 
 // DELETE - Delete a driver

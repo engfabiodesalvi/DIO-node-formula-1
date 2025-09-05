@@ -5,8 +5,8 @@ import { repositoryNewDriver } from "../repository/drivers/add-driver-repository
 import { repositoryDeleteDriver } from "../repository/drivers/delete-driver-repositry";
 import { repositoryEditDriver } from "../repository/drivers/edit-driver-repository";
 import { repositoryFindDriverById } from "../repository/drivers/find-driver-id-repository";
-import { repositoryUpsertDriver } from "../repository/drivers/upsert-drivers-repositry";
-import { repositoryDeleteDriverById } from "../repository/drivers/delete-driver-id-repository";
+import { repositoryUpsertDriver } from "../repository/drivers/upsert-driver-repository";
+import { repositoryDeleteDriverById } from "../repository/drivers/delete-driver-by-id-repository";
 
 export const driversController = async (server: FastifyInstance) => {
 
