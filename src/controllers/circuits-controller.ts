@@ -15,8 +15,8 @@ export const circuitsController = async (server: FastifyInstance) => {
       await repositoryListCircuits(request, response)
   );  
       
-  // GET - Find circuits by id
-  server.get<{Params: CircuitParams}>( "/circuits/id/:circuitId",
+  // GET - Find circuit by id
+  server.get<{Params: CircuitParams}>( "/circuit/id/:circuitId",
     async (request, response) => 
       await repositoryFindCircuitById(request, response)
   );
@@ -28,14 +28,14 @@ export const circuitsController = async (server: FastifyInstance) => {
       await repositoryNewCircuit(request, response)
   );
 
-  // PUT - (Upsert) Edit or insert new driver
+  // PUT - (Upsert) Edit or insert new circuit
   server.put(
     "/circuit",
     async (request, response) =>
       await repositoryUpsertCircuit(request, response)
   );
 
-  // PATCH - Edit a driver
+  // PATCH - Edit a circuit
   server.patch(
     "/circuit",
     async (request, response) => 

@@ -2,26 +2,26 @@ import * as fs from 'fs';
 import fsPromises from "fs/promises";
 import * as csv from 'csv-parse';
 import path from 'path';
-import { CircuitsModel } from '../../models/data/circuit-model';
+import { ConstructorResultModel } from '../../models/data/constructor-result-model';
 
 export const language = "utf-8";
 
 // Path for csv driver file
-export const pathCircuitsDataCsv = path.join(__dirname, "../database/csv/circuits.csv");
+export const pathConstructorResultsDataCsv = path.join(__dirname, "../database/csv/constructor_results.csv");
 // Path for json driver file
-export const pathCircuitsDataJson = path.join(__dirname, "../database/json/circuits.json");
-console.log(pathCircuitsDataCsv);
+export const pathConstructorResultsDataJson = path.join(__dirname, "../database/json/constructor-results.json");
+console.log(pathConstructorResultsDataCsv);
 
 // Drivers data
-export let listCircuits: CircuitsModel[] = [];
+export let listConstructorResults: ConstructorResultModel[] = [];
 
 export async function sortListCircuits() {
-    listCircuits.sort((a, b) => a.circuitId - b.circuitId);
+    listConstructorResults.sort((a, b) => a.constructorResultsId - b.constructorResultsId);
 }
 
-// load csv to CircuitsModel[] 
-export const loadCircuits = async(filePath: string): Promise<CircuitsModel[]> => {
-    let results: CircuitsModel[] = [];         
+// load csv to ConstructorResultModel[] 
+export const loadConstructorResults = async(filePath: string): Promise<ConstructorResultModel[]> => {
+    let results: ConstructorResultModel[] = [];         
 
     const readCsvFile = fs.createReadStream(filePath);
 
@@ -37,15 +37,11 @@ export const loadCircuits = async(filePath: string): Promise<CircuitsModel[]> =>
                         columns: true, // Treat the first row as column headers (keys)
                     }))
                     .on('data', (data: any) => results.push({
-                        circuitId: parseInt(data['circuitId']) || -1,
-                        circuitRef: data['circuitRef'],
-                        name: data['name'],
-                        location: data['location'],
-                        country: data['country'],
-                        lat: parseFloat(data['lat']) || 0.0,
-                        lng: parseFloat(data['lng']) || 0.0,
-                        alt: parseInt(data['alt']) || 0,
-                        url: data['url']
+                        constructorResultsId: parseInt(data['constructorResultsId']) || -1,
+                        raceId: parseInt(data['raceId']) || -1,
+                        constructorId: parseInt(data['constructorId']) || -1,
+                        points: parseInt(data['points']) || 0,
+                        status: (data['status']=="\\N")? "" : data['status']
                     }))
                     .on('end', () => resolve(results))
                     .on('error', (error: any) => {
@@ -56,74 +52,74 @@ export const loadCircuits = async(filePath: string): Promise<CircuitsModel[]> =>
    
 };
 
-// loading circuits from csv file
-export const loadCircuitsCsvFile = async(filePathCsv: string, filePathJson: string) => {
-    await loadCircuits(filePathCsv)
-    .then((loadCircuits: CircuitsModel[]) => {
-        listCircuits = loadCircuits;
-        if (listCircuits.length > 0) {      
-        console.log(listCircuits[0])
-        console.log(listCircuits[1])
-        console.log(listCircuits[2])
+// loading constructorResults from csv file
+export const loadConstructorResultsCsvFile = async(filePathCsv: string, filePathJson: string) => {
+    await loadConstructorResults(filePathCsv)
+    .then((loadConstructorResults: ConstructorResultModel[]) => {
+        listConstructorResults = loadConstructorResults;
+        if (listConstructorResults.length > 0) {      
+        console.log(listConstructorResults[0])
+        console.log(listConstructorResults[1])
+        console.log(listConstructorResults[2])
         }    
-        saveCircuitsToJsonFile(filePathJson);
+        saveConstructorResultsToJsonFile(filePathJson);
     })
     .catch((error: any) => console.error('Error while converting CSV: ', error));
 }
 
-// loading circuits from json file
-export const loadCircuitsJsonFile = async(filePathJson: string) => {
+// loading constructorResults from json file
+export const loadConstructorResultsJsonFile = async(filePathJson: string) => {
   
     const rawData = fsPromises.readFile(filePathJson, language);
     const jsonFile = JSON.parse(await rawData);
-    listCircuits = jsonFile['circuits'];
-    if (listCircuits.length > 0) {      
-        console.log(listCircuits[0])
-        console.log(listCircuits[1])
-        console.log(listCircuits[2])
+    listConstructorResults = jsonFile['constructorResults'];
+    if (listConstructorResults.length > 0) {      
+        console.log(listConstructorResults[0])
+        console.log(listConstructorResults[1])
+        console.log(listConstructorResults[2])
     }        
     console.log("Circuits data loaded from json file!");
 };
 
-// save CircuitsModel[] to json file
-export const saveCircuitsToJsonFile = async(filePath: string) => {
+// save ConstructorResultModel[] to json file
+export const saveConstructorResultsToJsonFile = async(filePath: string) => {
     try {
-        const jsonFile = {circuits: listCircuits};
+        const jsonFile = {constructorResults: listConstructorResults};
         const jsonString = JSON.stringify(jsonFile, null, 2); // Stringify with pretty-printing
 
         // update de file
         await fsPromises.writeFile(filePath, jsonString, language);
 
-        console.log('JSON data saved to circuits.json');  
+        console.log('JSON data saved to constructor-results.json');  
   } catch (error) {
     console.error(`Error performing file operations: ${error}`);
   }                  
 };
 
-// save external CircuitsModel[] to json file
-export const saveExtCircuitsToJsonFile = async(filePath: string, circuitsModel: CircuitsModel[]) => {
+// save external ConstructorResultModel[] to json file
+export const saveExtConstructorResultsToJsonFile = async(filePath: string, constructorResultsModel: ConstructorResultModel[]) => {
     try {
-        const jsonFile = {circuits: circuitsModel};
+        const jsonFile = {constructorResults: constructorResultsModel};
         const jsonString = JSON.stringify(jsonFile, null, 2); // Stringify with pretty-printing
 
         // update de file
         await fsPromises.writeFile(filePath, jsonString, language);
         
-        listCircuits = circuitsModel;
+        listConstructorResults = constructorResultsModel;
 
-        console.log('JSON data saved to circuits.json');  
+        console.log('JSON data saved to constructor-results.json');  
   } catch (error) {
     console.error(`Error performing file operations: ${error}`);
   }                  
 }
 
 // Verify if json file exists!
-if (fs.existsSync(pathCircuitsDataJson)) {
+if (fs.existsSync(pathConstructorResultsDataJson)) {
     // Load data from json file
-    loadCircuitsJsonFile(pathCircuitsDataJson)
+    loadConstructorResultsJsonFile(pathConstructorResultsDataJson)
     console.log("File exists.");
 } else {
     // Create json file from csv file.
-    loadCircuitsCsvFile(pathCircuitsDataCsv, pathCircuitsDataJson);
+    loadConstructorResultsCsvFile(pathConstructorResultsDataCsv, pathConstructorResultsDataJson);
     console.log("File does not exists.");
 }

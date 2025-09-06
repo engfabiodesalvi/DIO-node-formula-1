@@ -1,12 +1,10 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { DriverModel } from "../../models/data/driver-model";
 
-import { DriverParams } from "../../models/params/driver-params-model";
 import { CircuitModel } from "../../models/data/circuit-model";
 import { listCircuits } from "./load-circuits-repository";
 import { CircuitParams } from "../../models/params/circuit-params-model";
 
-// GET - Find circuits by Id
+// GET - Find circuit by Id
 export const repositoryFindCircuitById = async (
     request: FastifyRequest,
     response: FastifyReply,      
@@ -36,7 +34,7 @@ export const repositoryFindCircuitById = async (
                                     return true;
                                 }
                             } 
-                        }) as DriverModel;
+                        }) as CircuitModel;
                     } else {
                         response.type("application/json").code(400); // bad request
                         return {

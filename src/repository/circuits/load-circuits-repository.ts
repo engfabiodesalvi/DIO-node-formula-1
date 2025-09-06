@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import fsPromises from "fs/promises";
 import * as csv from 'csv-parse';
 import path from 'path';
-import { CircuitsModel } from '../../models/data/circuit-model';
+import { CircuitModel } from '../../models/data/circuit-model';
 
 export const language = "utf-8";
 
@@ -13,15 +13,15 @@ export const pathCircuitsDataJson = path.join(__dirname, "../database/json/circu
 console.log(pathCircuitsDataCsv);
 
 // Drivers data
-export let listCircuits: CircuitsModel[] = [];
+export let listCircuits: CircuitModel[] = [];
 
 export async function sortListCircuits() {
     listCircuits.sort((a, b) => a.circuitId - b.circuitId);
 }
 
-// load csv to CircuitsModel[] 
-export const loadCircuits = async(filePath: string): Promise<CircuitsModel[]> => {
-    let results: CircuitsModel[] = [];         
+// load csv to CircuitModel[] 
+export const loadCircuits = async(filePath: string): Promise<CircuitModel[]> => {
+    let results: CircuitModel[] = [];         
 
     const readCsvFile = fs.createReadStream(filePath);
 
@@ -59,7 +59,7 @@ export const loadCircuits = async(filePath: string): Promise<CircuitsModel[]> =>
 // loading circuits from csv file
 export const loadCircuitsCsvFile = async(filePathCsv: string, filePathJson: string) => {
     await loadCircuits(filePathCsv)
-    .then((loadCircuits: CircuitsModel[]) => {
+    .then((loadCircuits: CircuitModel[]) => {
         listCircuits = loadCircuits;
         if (listCircuits.length > 0) {      
         console.log(listCircuits[0])
@@ -85,7 +85,7 @@ export const loadCircuitsJsonFile = async(filePathJson: string) => {
     console.log("Circuits data loaded from json file!");
 };
 
-// save CircuitsModel[] to json file
+// save CircuitModel[] to json file
 export const saveCircuitsToJsonFile = async(filePath: string) => {
     try {
         const jsonFile = {circuits: listCircuits};
@@ -100,8 +100,8 @@ export const saveCircuitsToJsonFile = async(filePath: string) => {
   }                  
 };
 
-// save external CircuitsModel[] to json file
-export const saveExtCircuitsToJsonFile = async(filePath: string, circuitsModel: CircuitsModel[]) => {
+// save external CircuitModel[] to json file
+export const saveExtCircuitsToJsonFile = async(filePath: string, circuitsModel: CircuitModel[]) => {
     try {
         const jsonFile = {circuits: circuitsModel};
         const jsonString = JSON.stringify(jsonFile, null, 2); // Stringify with pretty-printing

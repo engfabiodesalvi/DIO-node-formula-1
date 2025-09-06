@@ -3,5 +3,5 @@ export interface ConstructorResultModel {
     "raceId": number,
     "constructorId": number,
     "points": number,
-    "status": number
+    "status": string
 }

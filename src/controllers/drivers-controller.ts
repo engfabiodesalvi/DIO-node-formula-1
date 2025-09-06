@@ -15,8 +15,8 @@ export const driversController = async (server: FastifyInstance) => {
       await repositoryListDrivers(request, response)
   );  
       
-  // GET - Find drivers by id
-  server.get<{Params: DriverParams}>( "/drivers/id/:driverId",
+  // GET - Find driver by id
+  server.get<{Params: DriverParams}>( "/driver/id/:driverId",
     async (request, response) => 
       await repositoryFindDriverById(request, response)
   );
