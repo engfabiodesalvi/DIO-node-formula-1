@@ -2,7 +2,7 @@
   "circuits": [
     {
       "circuitId": 1,
-      "circuitRef": "albert_park",
+      "circuitRef": "albert_park test",
       "name": "Albert Park Grand Prix Circuit",
       "location": "Melbourne",
       "country": "Australia",
