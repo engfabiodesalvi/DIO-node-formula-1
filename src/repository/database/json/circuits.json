@@ -1,17 +1,6 @@
 {
   "circuits": [
     {
-      "circuitId": 3,
-      "circuitRef": "bahrain",
-      "name": "Bahrain International Circuit",
-      "location": "Sakhir",
-      "country": "Bahrain",
-      "lat": 26.0325,
-      "lng": 50.5106,
-      "alt": 7,
-      "url": "http://en.wikipedia.org/wiki/Bahrain_International_Circuit"
-    },
-    {
       "circuitId": 4,
       "circuitRef": "catalunya",
       "name": "Circuit de Barcelona-Catalunya",
