@@ -1,4 +1,4 @@
-import { DriverModel } from "../models/driver-model";
+import { DriverModel } from "../models/data/driver-model";
 
 export const isDriverModel = async (
   newDriver?: DriverModel | undefined

@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { DriverModel } from "../../models/driver-model";
+import { DriverModel } from "../../models/data/driver-model";
 import { listDrivers } from "./load-drivers-repository";
-import { DriverParams } from "../../models/driver-parameters-model";
+import { DriverParams } from "../../models/params/driver-params-model";
 
 // GET - Find driver by Id
 export const repositoryFindDriverById = async (

@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { repositoryListDrivers } from "../repository/drivers/list-drivers-repository";
-import { DriverParams } from "../models/driver-parameters-model";
+import { DriverParams } from "../models/params/driver-params-model";
 import { repositoryNewDriver } from "../repository/drivers/add-driver-repository";
 import { repositoryDeleteDriver } from "../repository/drivers/delete-driver-repositry";
 import { repositoryEditDriver } from "../repository/drivers/edit-driver-repository";

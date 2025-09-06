@@ -1,4 +1,4 @@
-import { CircuitModel } from "../models/circuit-model";
+import { CircuitModel } from "../models/data/circuit-model";
 
 export const isCircuitModel = async (
   newCircuit?: CircuitModel | undefined

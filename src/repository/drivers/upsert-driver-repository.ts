@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { DriverModel } from "../../models/driver-model";
+import { DriverModel } from "../../models/data/driver-model";
 import { isDriverModel } from "../../utils/is-drivermodel-type";
 import { listDrivers, loadDriversJsonFile, pathDriversDataJson, saveExtDriversToJsonFile, sortListDrivers } from "./load-drivers-repository";
 

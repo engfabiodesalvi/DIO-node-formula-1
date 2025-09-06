@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { DriverModel } from "../../models/driver-model";
+import { DriverModel } from "../../models/data/driver-model";
 import { isPartialDriverModel } from "../../utils/is-partial-drivermodel-type";
-import { CircuitModel } from "../../models/circuit-model";
+import { CircuitModel } from "../../models/data/circuit-model";
 import { isPartialCircuitModel } from "../../utils/is-partial-circuitmodel-type";
 import { listCircuits, loadCircuitsJsonFile, pathCircuitsDataJson, saveExtCircuitsToJsonFile } from "./load-circuits-repository";
 

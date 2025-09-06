@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { CircuitParams } from "../../models/circuit-parameters-model";
-import { CircuitModel } from "../../models/circuit-model";
+import { CircuitParams } from "../../models/params/circuit-params-model";
+import { CircuitModel } from "../../models/data/circuit-model";
 import { listCircuits, loadCircuitsJsonFile, pathCircuitsDataJson, saveExtCircuitsToJsonFile } from "./load-circuits-repository";
 
 // DELETE - Delete a circuit

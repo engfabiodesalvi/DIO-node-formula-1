@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import fsPromises from "fs/promises";
 import * as csv from 'csv-parse';
-import { DriverModel } from '../../models/driver-model';
+import { DriverModel } from '../../models/data/driver-model';
 import path from 'path';
 
 export const language = "utf-8";

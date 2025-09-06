@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { CircuitModel } from "../../models/circuit-model";
+import { CircuitModel } from "../../models/data/circuit-model";
 import { isCircuitModel } from "../../utils/is-circuitmodel-type";
 import { listCircuits, loadCircuitsJsonFile, pathCircuitsDataJson, saveExtCircuitsToJsonFile, sortListCircuits } from "./load-circuits-repository";
 

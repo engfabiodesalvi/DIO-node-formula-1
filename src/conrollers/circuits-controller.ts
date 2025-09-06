@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { repositoryListCircuits } from "../repository/circuits/list-circuits-repository";
-import { CircuitParams } from "../models/circuit-parameters-model";
+import { CircuitParams } from "../models/params/circuit-params-model";
 import { repositoryFindCircuitById } from "../repository/circuits/find-circuit-by-id-repository";
 import { repositoryDeleteCircuitById } from "../repository/circuits/delete-circuit-by-id-repository";
 import { repositoryDeleteCircuit } from "../repository/circuits/delete-circuit-repository";

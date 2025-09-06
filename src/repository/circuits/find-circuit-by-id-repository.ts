@@ -1,10 +1,10 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { DriverModel } from "../../models/driver-model";
+import { DriverModel } from "../../models/data/driver-model";
 
-import { DriverParams } from "../../models/driver-parameters-model";
-import { CircuitModel } from "../../models/circuit-model";
+import { DriverParams } from "../../models/params/driver-params-model";
+import { CircuitModel } from "../../models/data/circuit-model";
 import { listCircuits } from "./load-circuits-repository";
-import { CircuitParams } from "../../models/circuit-parameters-model";
+import { CircuitParams } from "../../models/params/circuit-params-model";
 
 // GET - Find circuits by Id
 export const repositoryFindCircuitById = async (

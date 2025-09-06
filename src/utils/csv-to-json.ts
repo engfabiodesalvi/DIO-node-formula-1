@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as csv from 'csv-parse';
-import { DriversModel } from '../models/driver-model';
+import { DriversModel } from '../models/data/driver-model';
 
 // blueprint function - changes for other cases
 export const convertCsvToJson = async(filePath: string): Promise<DriversModel[]> => {
