@@ -3,7 +3,7 @@ import { CircuitParams } from "../../models/circuit-parameters-model";
 import { CircuitModel } from "../../models/circuit-model";
 import { listCircuits, loadCircuitsJsonFile, pathCircuitsDataJson, saveExtCircuitsToJsonFile } from "./load-circuits-repository";
 
-// DELETE - Delete a driver
+// DELETE - Delete a circuit
 export const repositoryDeleteCircuitById = async (
     request: FastifyRequest,
     response: FastifyReply

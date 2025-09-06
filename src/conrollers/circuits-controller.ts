@@ -4,6 +4,7 @@ import { CircuitParams } from "../models/circuit-parameters-model";
 import { repositoryFindCircuitById } from "../repository/circuits/find-circuit-by-id-repository";
 import { repositoryDeleteCircuitById } from "../repository/circuits/delete-circuit-by-id-repository";
 import { repositoryDeleteCircuit } from "../repository/circuits/delete-circuit-repository";
+import { repositoryNewCircuit } from "../repository/circuits/add-circuit-repository";
 
 export const circuitsController = async (server: FastifyInstance) => {
 
@@ -18,12 +19,12 @@ export const circuitsController = async (server: FastifyInstance) => {
       await repositoryFindCircuitById(request, response)
   );
 
-  // // POST - Create/insert new circuit
-  // server.post(
-  //   "/circuit",
-  //   async (request, response) =>
-  //     await repositoryNewCircuit(request, response)
-  // );
+  // POST - Create/insert new circuit
+  server.post(
+    "/circuit",
+    async (request, response) =>
+      await repositoryNewCircuit(request, response)
+  );
 
 //   // PUT - (Upsert) Edit or insert new driver
 //   server.put(

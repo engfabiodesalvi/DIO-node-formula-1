@@ -1,10 +1,10 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { DriverModel } from "../../models/driver-model";
-import { listDrivers, loadDriversJsonFile, pathDriversDataJson, saveDriversToJsonFile, saveExtDriversToJsonFile, sortListDrivers } from "./load-drivers-repository";
-import { isDriverModel } from "../../utils/is-drivermodel-type";
+import { CircuitModel } from "../../models/circuit-model";
+import { isCircuitModel } from "../../utils/is-circuitmodel-type";
+import { listCircuits, loadCircuitsJsonFile, pathCircuitsDataJson, saveExtCircuitsToJsonFile, sortListCircuits } from "./load-circuits-repository";
 
-// POST - Create/insert new driver
-export const repositoryNewDriver = async (
+// POST - Create/insert new circuit
+export const repositoryNewCircuit = async (
     request: FastifyRequest,
     response: FastifyReply
 ) => {
@@ -18,39 +18,39 @@ export const repositoryNewDriver = async (
 
             // ckeck if reqBody is defined
             if (reqBody) {            
-                // check for newDriver key in data body
-                let foundKeyNewDriver = false;
+                // check for newCircuit key in data body
+                let foundKeyNewCircuit = false;
                 for (const key in reqBody) {
-                    if (key === "newDriver")
-                        foundKeyNewDriver = true;            
+                    if (key === "newCircuit")
+                        foundKeyNewCircuit = true;            
                 }
-                // proceed if the newDriver object was found
-                if (foundKeyNewDriver) {
-                    // obtain data from newDriver object
-                    let newDriver = reqBody['newDriver'] as DriverModel; 
-                    // check the data format match with DriverModel
-                    if (await isDriverModel(newDriver)) { 
+                // proceed if the newCircuit object was found
+                if (foundKeyNewCircuit) {
+                    // obtain data from newCircuit object
+                    let newCircuit = reqBody['newCircuit'] as CircuitModel; 
+                    // check the data format match with CircuitModel
+                    if (await isCircuitModel(newCircuit)) { 
 
                         // find new driver id in database
-                        let findDriver = listDrivers.filter(
-                            (itemDriver)=> itemDriver.driverId === newDriver.driverId);
+                        let findCircuit = listCircuits.filter(
+                            (itemCircuit)=> itemCircuit.circuitId === newCircuit.circuitId);
 
                         // insert new item if no results match
-                        if (findDriver.length === 0) {              
-                            listDrivers.push(newDriver);
+                        if (findCircuit.length === 0) {              
+                            listCircuits.push(newCircuit);
 
                             // ascendant order drivers 
-                            await sortListDrivers();
+                            await sortListCircuits();
                             // save new data to json file
-                            await saveExtDriversToJsonFile(pathDriversDataJson, listDrivers);
-                            await loadDriversJsonFile(pathDriversDataJson);      
+                            await saveExtCircuitsToJsonFile(pathCircuitsDataJson, listCircuits);
+                            await loadCircuitsJsonFile(pathCircuitsDataJson);      
                                         
-                            //listDrivers = listDrivers.sort((a, b) => a.driverId - b.driverId);
+                            //listCircuits = listCircuits.sort((a, b) => a.circuitId - b.circuitId);
                             // verify if new item was inserted
-                            findDriver = listDrivers.filter(
-                                (itemDriver)=> {
-                                    if (itemDriver.driverId === newDriver.driverId) {
-                                        newDriver = itemDriver;
+                            findCircuit = listCircuits.filter(
+                                (itemCircuit)=> {
+                                    if (itemCircuit.circuitId === newCircuit.circuitId) {
+                                        newCircuit = itemCircuit;
                                         return true;
                                     } else {
                                         return false;
@@ -58,23 +58,23 @@ export const repositoryNewDriver = async (
                                 });
                                         
                             // if ok return the item                    
-                            if (findDriver.length === 1) {
+                            if (findCircuit.length === 1) {
                                 response.type("application/json").code(201); // created
                                 return {
-                                    "message": `[driverId: ${newDriver.driverId}] inserted!`, 
-                                    "newDriver": findDriver};
+                                    "message": `[circuitId: ${newCircuit.circuitId}] inserted!`, 
+                                    "newCircuit": findCircuit};
                             } else {
                                 response.type("application/json").code(500); // internal server error
                                 return {
-                                    "message": `[driverId: ${newDriver.driverId}] wasn't inserted!`,
-                                    "newDriver": newDriver};
+                                    "message": `[circuitId: ${newCircuit.circuitId}] wasn't inserted!`,
+                                    "newCircuit": newCircuit};
                             }
                         } else {
                             // driver alredy inserted.
                             response.type("application/json").code(409); // Conflict
                             return {
-                                "message": `[driverId: ${newDriver.driverId}] already created!`,
-                                "newDriver": newDriver};
+                                "message": `[circuitId: ${newCircuit.circuitId}] already created!`,
+                                "newCircuit": newCircuit};
                         }
 
                     } else {
@@ -91,7 +91,7 @@ export const repositoryNewDriver = async (
                 response.type("application/json").code(400); // bad request
                 return {"message": "Empty body!"}              
             }                                
-            //return {"message": "Bearer Token ok!", newDriver};
+            //return {"message": "Bearer Token ok!", newCircuit};
         } else {
             response.type("application/json").code(401); // unauthorized
             return {"message": "Bearer Token wrong!"};

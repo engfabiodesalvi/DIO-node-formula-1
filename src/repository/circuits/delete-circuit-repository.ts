@@ -5,7 +5,7 @@ import { CircuitModel } from "../../models/circuit-model";
 import { isPartialCircuitModel } from "../../utils/is-partial-circuitmodel-type";
 import { listCircuits, loadCircuitsJsonFile, pathCircuitsDataJson, saveExtCircuitsToJsonFile } from "./load-circuits-repository";
 
-// DELETE - Delete a driver
+// DELETE - Delete a circuit
 export const repositoryDeleteCircuit = async (
     request: FastifyRequest,
     response: FastifyReply
