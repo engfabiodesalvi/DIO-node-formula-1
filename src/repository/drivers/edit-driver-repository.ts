@@ -1,7 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { listDrivers, loadDriversJsonFile, pathDriversDataJson, saveExtDriversToJsonFile, sortListDrivers } from "./load-drivers-repository";
 import { DriverModel } from "../../models/driver-model";
-import { isDriverModel } from "../../utils/is-drivermodel-type";
 import { isPartialDriverModel } from "../../utils/is-partial-drivermodel-type";
 
 // PATCH - Edit a driver

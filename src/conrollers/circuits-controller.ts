@@ -6,6 +6,7 @@ import { repositoryDeleteCircuitById } from "../repository/circuits/delete-circu
 import { repositoryDeleteCircuit } from "../repository/circuits/delete-circuit-repository";
 import { repositoryNewCircuit } from "../repository/circuits/add-circuit-repository";
 import { repositoryUpsertCircuit } from "../repository/circuits/upsert-circuit-repository";
+import { repositoryEditCircuit } from "../repository/circuits/edit-circuit-repository";
 
 export const circuitsController = async (server: FastifyInstance) => {
 
@@ -34,12 +35,12 @@ export const circuitsController = async (server: FastifyInstance) => {
       await repositoryUpsertCircuit(request, response)
   );
 
-//   // PATCH - Edit a driver
-//   server.patch(
-//     "/driver",
-//     async (request, response) => 
-//     await repositoryEditDriver(request, response)
-//   );
+  // PATCH - Edit a driver
+  server.patch(
+    "/circuit",
+    async (request, response) => 
+    await repositoryEditCircuit(request, response)
+  );
 
   // DELETE - Delete a circuit
   server.delete(
