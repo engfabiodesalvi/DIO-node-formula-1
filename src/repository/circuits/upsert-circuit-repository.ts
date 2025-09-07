@@ -58,13 +58,13 @@ export const repositoryUpsertCircuit = async (
                                 listCircuits.push(upsertCircuit);                
                             }
 
-                            // ascendant order circuitsId 
+                            // ascendant order circuitId 
                             await sortListCircuits();
                             // save insert/edit data to json file
                             await saveExtCircuitsToJsonFile(pathCircuitsDataJson, listCircuits);
                             await loadCircuitsJsonFile(pathCircuitsDataJson);       
                             
-                            // find for inserted/edited driver
+                            // find for inserted/edited circuit
                             let foundCircuit = listCircuits.filter(
                                 (itemCircuit)=> {
                                     if (itemCircuit.circuitId === upsertCircuit.circuitId) {
