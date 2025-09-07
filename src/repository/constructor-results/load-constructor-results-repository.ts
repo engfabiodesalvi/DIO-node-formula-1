@@ -78,7 +78,7 @@ export const loadConstructorResultsJsonFile = async(filePathJson: string) => {
         console.log(listConstructorResults[1])
         console.log(listConstructorResults[2])
     }        
-    console.log("Circuits data loaded from json file!");
+    console.log("Constructor Results data loaded from json file!");
 };
 
 // save ConstructorResultModel[] to json file

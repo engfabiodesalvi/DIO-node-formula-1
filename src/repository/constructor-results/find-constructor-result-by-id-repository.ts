@@ -48,7 +48,7 @@ export const repositoryFindConstructorResultById = async (
 
             if (!(constructorResults)) {
                 response.type("application/json").code(404);
-                return { message: "Circuit Not Found" };
+                return { message: "Constructor Result Not Found" };
             } else {
                 response.type("application/json").code(200);
                 return { "constructorResults": constructorResults };

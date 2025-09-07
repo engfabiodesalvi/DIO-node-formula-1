@@ -2,10 +2,10 @@ import { ConstructorStandingModel } from "../../../models/data/constructor-stand
 
 
 
-export const isPartialCircuitModel = async (
+export const isPartialConstructorStandingModel = async (
   constructorStandingModel?: ConstructorStandingModel | undefined
 ): Promise<boolean> => {
-    let isPartialTypeOfCircuitModel = false;
+    let isPartialTypeOfConstructorStandingModel = false;
     let countKeys = Object.keys(constructorStandingModel as ConstructorStandingModel).length
 
     // ConstructorStandingModel must have a defined circuitId
@@ -40,7 +40,7 @@ export const isPartialCircuitModel = async (
             countKeys--;             
         
         if (countKeys === 0) {
-            isPartialTypeOfCircuitModel = true;
+            isPartialTypeOfConstructorStandingModel = true;
             console.log("Is Partial Typeof ConstructorStandingModel");
         } else {
             console.log("Isn't Partial Typeof ConstructorStandingModel");
@@ -50,5 +50,5 @@ export const isPartialCircuitModel = async (
         console.log("Isn't Partial Typeof ConstructorStandingModel");
     }
 
-    return isPartialTypeOfCircuitModel;
+    return isPartialTypeOfConstructorStandingModel;
 };

@@ -1,6 +1,6 @@
 import { ConstructorStandingModel } from "../../../models/data/constructor-standing-model";
 
-export const isConstructorStanding = async (
+export const isConstructorStandingModel = async (
   newConstructorStanding?: ConstructorStandingModel | undefined
 ): Promise<boolean> => {
     let isTypeOfConstructorStanding = false;
@@ -14,7 +14,7 @@ export const isConstructorStanding = async (
             typeof newConstructorStanding.points === 'number' && Number.isInteger(newConstructorStanding.points) &&
             typeof newConstructorStanding.position === 'number' && Number.isInteger(newConstructorStanding.position) &&
             typeof newConstructorStanding.positionText === 'string' &&
-            typeof newConstructorStanding.wins === 'string' &&
+            typeof newConstructorStanding.wins === 'number' && Number.isInteger(newConstructorStanding.wins) &&
             countKeys === 7
         ) {                        
    
