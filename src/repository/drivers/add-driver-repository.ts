@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { DriverModel } from "../../models/data/driver-model";
 import { listDrivers, loadDriversJsonFile, pathDriversDataJson, saveDriversToJsonFile, saveExtDriversToJsonFile, sortListDrivers } from "./load-drivers-repository";
-import { isDriverModel } from "../../utils/is-drivermodel-type";
+import { isDriverModel } from "../../utils/isType/driver-model/is-drivermodel-type";
 
 // POST - Create/insert new driver
 export const repositoryNewDriver = async (
@@ -31,43 +31,52 @@ export const repositoryNewDriver = async (
                     // check the data format match with DriverModel
                     if (await isDriverModel(newDriver)) { 
 
-                        // find new driver id in database
-                        let findDriver = listDrivers.filter(
-                            (itemDriver)=> itemDriver.driverId === newDriver.driverId);
+                        // checking if driveId > 0                                                
+                        if (newDriver.driverId > 0) {
 
-                        // insert new item if no results match
-                        if (findDriver.length === 0) {              
-                            listDrivers.push(newDriver);
+                            // find new driver id in database
+                            let findDriver = listDrivers.filter(
+                                (itemDriver)=> itemDriver.driverId === newDriver.driverId);
 
-                            // ascendant order drivers 
-                            await sortListDrivers();
-                            // save new data to json file
-                            await saveExtDriversToJsonFile(pathDriversDataJson, listDrivers);
-                            await loadDriversJsonFile(pathDriversDataJson);      
-                                        
-                            //listDrivers = listDrivers.sort((a, b) => a.driverId - b.driverId);
-                            // verify if new item was inserted
-                            findDriver = listDrivers.filter(
-                                (itemDriver)=> {
-                                    if (itemDriver.driverId === newDriver.driverId) {
-                                        newDriver = itemDriver;
-                                        return true;
-                                    } else {
-                                        return false;
-                                    }
-                                });
-                                        
-                            // if ok return the item                    
-                            if (findDriver.length === 1) {
-                                response.type("application/json").code(201); // created
-                                return {
-                                    "message": `[driverId: ${newDriver.driverId}] inserted!`, 
-                                    "newDriver": findDriver};
+                            // insert new item if no results match
+                            if (findDriver.length === 0) {              
+                                listDrivers.push(newDriver);
+
+                                // ascendant order drivers 
+                                await sortListDrivers();
+                                // save new data to json file
+                                await saveExtDriversToJsonFile(pathDriversDataJson, listDrivers);
+                                await loadDriversJsonFile(pathDriversDataJson);      
+                                            
+                                //listDrivers = listDrivers.sort((a, b) => a.driverId - b.driverId);
+                                // verify if new item was inserted
+                                findDriver = listDrivers.filter(
+                                    (itemDriver)=> {
+                                        if (itemDriver.driverId === newDriver.driverId) {
+                                            newDriver = itemDriver;
+                                            return true;
+                                        } else {
+                                            return false;
+                                        }
+                                    });
+                                            
+                                // if ok return the item                    
+                                if (findDriver.length === 1) {
+                                    response.type("application/json").code(201); // created
+                                    return {
+                                        "message": `[driverId: ${newDriver.driverId}] inserted!`, 
+                                        "newDriver": findDriver};
+                                } else {
+                                    response.type("application/json").code(500); // internal server error
+                                    return {
+                                        "message": `[driverId: ${newDriver.driverId}] wasn't inserted!`,
+                                        "newDriver": newDriver};
+                                }
                             } else {
-                                response.type("application/json").code(500); // internal server error
+                                response.type("application/json").code(400); // bad request
                                 return {
-                                    "message": `[driverId: ${newDriver.driverId}] wasn't inserted!`,
-                                    "newDriver": newDriver};
+                                    "message": `[driverId: ${newDriver.driverId}] must be a positive number!`,
+                                    "newDriver": newDriver};                                  
                             }
                         } else {
                             // driver alredy inserted.

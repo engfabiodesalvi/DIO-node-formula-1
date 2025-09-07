@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { DriverModel } from "../../models/data/driver-model";
 import { listDrivers, loadDriversJsonFile, pathDriversDataJson, saveExtDriversToJsonFile } from "./load-drivers-repository";
-import { isPartialDriverModel } from "../../utils/is-partial-drivermodel-type";
+import { isPartialDriverModel } from "../../utils/isType/driver-model/is-partial-drivermodel-type";
 
 // DELETE - Delete a driver
 export const repositoryDeleteDriver = async (

@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { CircuitModel } from "../../models/data/circuit-model";
-import { isPartialCircuitModel } from "../../utils/is-partial-circuitmodel-type";
+import { isPartialCircuitModel } from "../../utils/isType/circuit-model/is-partial-circuitmodel-type";
 import { listCircuits, loadCircuitsJsonFile, pathCircuitsDataJson, saveExtCircuitsToJsonFile, sortListCircuits } from "./load-circuits-repository";
 
 // PATCH - Edit a circuit

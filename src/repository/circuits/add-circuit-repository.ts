@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { CircuitModel } from "../../models/data/circuit-model";
-import { isCircuitModel } from "../../utils/is-circuitmodel-type";
+import { isCircuitModel } from "../../utils/isType/circuit-model/is-circuitmodel-type";
 import { listCircuits, loadCircuitsJsonFile, pathCircuitsDataJson, saveExtCircuitsToJsonFile, sortListCircuits } from "./load-circuits-repository";
 
 // POST - Create/insert new circuit
@@ -31,50 +31,60 @@ export const repositoryNewCircuit = async (
                     // check the data format match with CircuitModel
                     if (await isCircuitModel(newCircuit)) { 
 
-                        // find new driver id in database
-                        let findCircuit = listCircuits.filter(
-                            (itemCircuit)=> itemCircuit.circuitId === newCircuit.circuitId);
+                        // checking if circuitId > 0
+                        if (newCircuit.circuitId > 0) {
+                        
+                            // find new circuit id in database
+                            let findCircuit = listCircuits.filter(
+                                (itemCircuit)=> itemCircuit.circuitId === newCircuit.circuitId);
 
-                        // insert new item if no results match
-                        if (findCircuit.length === 0) {              
-                            listCircuits.push(newCircuit);
+                            // insert new item if no results match
+                            if (findCircuit.length === 0) {              
+                                listCircuits.push(newCircuit);
 
-                            // ascendant order drivers 
-                            await sortListCircuits();
-                            // save new data to json file
-                            await saveExtCircuitsToJsonFile(pathCircuitsDataJson, listCircuits);
-                            await loadCircuitsJsonFile(pathCircuitsDataJson);      
-                                        
-                            //listCircuits = listCircuits.sort((a, b) => a.circuitId - b.circuitId);
-                            // verify if new item was inserted
-                            findCircuit = listCircuits.filter(
-                                (itemCircuit)=> {
-                                    if (itemCircuit.circuitId === newCircuit.circuitId) {
-                                        newCircuit = itemCircuit;
-                                        return true;
-                                    } else {
-                                        return false;
-                                    }
-                                });
-                                        
-                            // if ok return the item                    
-                            if (findCircuit.length === 1) {
-                                response.type("application/json").code(201); // created
-                                return {
-                                    "message": `[circuitId: ${newCircuit.circuitId}] inserted!`, 
-                                    "newCircuit": findCircuit};
+                                // ascendant order circuits 
+                                await sortListCircuits();
+                                // save new data to json file
+                                await saveExtCircuitsToJsonFile(pathCircuitsDataJson, listCircuits);
+                                await loadCircuitsJsonFile(pathCircuitsDataJson);      
+                                            
+                                //listCircuits = listCircuits.sort((a, b) => a.circuitId - b.circuitId);
+                                // verify if new item was inserted
+                                findCircuit = listCircuits.filter(
+                                    (itemCircuit)=> {
+                                        if (itemCircuit.circuitId === newCircuit.circuitId) {
+                                            newCircuit = itemCircuit;
+                                            return true;
+                                        } else {
+                                            return false;
+                                        }
+                                    });
+                                            
+                                // if ok return the item                    
+                                if (findCircuit.length === 1) {
+                                    response.type("application/json").code(201); // created
+                                    return {
+                                        "message": `[circuitId: ${newCircuit.circuitId}] inserted!`, 
+                                        "newCircuit": findCircuit};
+                                } else {
+                                    response.type("application/json").code(500); // internal server error
+                                    return {
+                                        "message": `[circuitId: ${newCircuit.circuitId}] wasn't inserted!`,
+                                        "newCircuit": newCircuit};
+                                }
                             } else {
-                                response.type("application/json").code(500); // internal server error
+                                // circuit alredy inserted.
+                                response.type("application/json").code(409); // Conflict
                                 return {
-                                    "message": `[circuitId: ${newCircuit.circuitId}] wasn't inserted!`,
+                                    "message": `[circuitId: ${newCircuit.circuitId}] already created!`,
                                     "newCircuit": newCircuit};
                             }
                         } else {
-                            // driver alredy inserted.
+                            // circuit alredy inserted.
                             response.type("application/json").code(409); // Conflict
                             return {
                                 "message": `[circuitId: ${newCircuit.circuitId}] already created!`,
-                                "newCircuit": newCircuit};
+                                "newDriver": newCircuit};                            
                         }
 
                     } else {
@@ -84,7 +94,7 @@ export const repositoryNewCircuit = async (
 
                 } else {
                     response.type("application/json").code(400); // bad request
-                    return {"message": "Send driver data to be inserted!"}
+                    return {"message": "Send circuit data to be inserted!"}
                 }                    
 
             } else {

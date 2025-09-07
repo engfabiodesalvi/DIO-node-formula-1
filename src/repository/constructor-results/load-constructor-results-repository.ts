@@ -15,7 +15,7 @@ console.log(pathConstructorResultsDataCsv);
 // Drivers data
 export let listConstructorResults: ConstructorResultModel[] = [];
 
-export async function sortListCircuits() {
+export async function sortListConstructorResults() {
     listConstructorResults.sort((a, b) => a.constructorResultsId - b.constructorResultsId);
 }
 

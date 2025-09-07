@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { DriverModel } from "../../models/data/driver-model";
-import { isDriverModel } from "../../utils/is-drivermodel-type";
+import { isDriverModel } from "../../utils/isType/driver-model/is-drivermodel-type";
 import { listDrivers, loadDriversJsonFile, pathDriversDataJson, saveExtDriversToJsonFile, sortListDrivers } from "./load-drivers-repository";
 
 // PUT - (Upsert) Edit or inser new driver
@@ -32,9 +32,10 @@ export const repositoryUpsertDriver = async (
                     // check the data format match with DriverModel
                     if (await isDriverModel(upsertDriver)) { 
 
-                        // find driverId in database
+                        // checking if driveId > 0
                         if (upsertDriver.driverId > 0) {
-                            // checking if the driver is aready registered
+
+                            // checking if the driver is aready registered in database
                             let itemMatch = false;
                             listDrivers.forEach(itemDriver => {
                                 if (itemDriver.driverId === upsertDriver.driverId) {
