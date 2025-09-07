@@ -1,4 +1,4 @@
-export interface ResultsModel {
+export interface ResultModel {
     "resultId": number,
     "raceId": number,
     "driverId": number,

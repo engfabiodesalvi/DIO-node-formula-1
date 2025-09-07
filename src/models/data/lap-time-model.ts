@@ -1,4 +1,4 @@
-export interface LapTimesModel {
+export interface LapTimeModel {
     "raceId": number,
     "driverId": number,
     "lap": number,

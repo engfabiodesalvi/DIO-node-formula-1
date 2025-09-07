@@ -1,4 +1,4 @@
-export interface SeasonsModel {
+export interface SeasonModel {
     "year": number,
     "url": string
 }
