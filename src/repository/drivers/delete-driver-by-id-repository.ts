@@ -25,7 +25,7 @@ export const repositoryDeleteDriverById = async (
             console.log(deleteDriverId);
 
             // ckeck if deleteDriverId is > 0
-            if (deleteDriverId >=0) {
+            if (deleteDriverId > 0) {
                 // find driverId in database
                 let foundDriver = listDrivers.filter(
                     (itemDriver)=> {
@@ -80,8 +80,7 @@ export const repositoryDeleteDriverById = async (
             } else {
                 response.type("application/json").code(400); // bad request
                 return {
-                    "message": `[driverId: ${deleteDriver.driverId}] must be a positive number!`,
-                    "deleteDriver": deleteDriver};                
+                    "message": `[driverId: ${deleteDriver.driverId}] must be a positive number!`};                
             }
 
         //return {"message": "Bearer Token ok!", newDriver};

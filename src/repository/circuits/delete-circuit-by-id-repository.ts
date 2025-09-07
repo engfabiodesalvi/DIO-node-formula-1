@@ -25,7 +25,7 @@ export const repositoryDeleteCircuitById = async (
             console.log(deleteCircuitId);
 
             // ckeck if deleteCircuitId is > 0
-            if (deleteCircuitId >=0) {
+            if (deleteCircuitId > 0) {
                 // find circuitId in database
                 let foundCircuit = listCircuits.filter(
                     (itemCircuit)=> {
@@ -80,8 +80,7 @@ export const repositoryDeleteCircuitById = async (
             } else {
                 response.type("application/json").code(400); // bad request
                 return {
-                    "message": `[circuitId: ${deleteCircuit.circuitId}] must be a positive number!`,
-                    "deleteCircuit": deleteCircuit};                
+                    "message": `[circuitId: ${deleteCircuit.circuitId}] must be a positive number!`};                
             }
 
         //return {"message": "Bearer Token ok!", newCircuit};

@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { repositoryListConstructorResults } from "../repository/constructor-results/list-constructor-results-repository";
 import { ConstructorResultParams } from "../models/params/constructor-result-params-model";
 import { repositoryFindConstructorResultById } from "../repository/constructor-results/find-constructor-result-by-id-repository";
+import { repositoryDeleteConstructorResultById } from "../repository/constructor-results/delete-constructor-result-by-id-repository";
 
 export const constructorResultsController = async (server: FastifyInstance) => {
 
@@ -44,11 +45,11 @@ export const constructorResultsController = async (server: FastifyInstance) => {
 //       await repositoryDeleteCircuit(request, response)
 //   );
 
-//   // DELETE - Delete a constructor result by id
-//   server.delete<{Params: CircuitParams}>(
-//     "/circuit/id/:circuitId",
-//     async (request, response) =>
-//       await repositoryDeleteCircuitById(request, response)
-//   );
+  // DELETE - Delete a constructor result by id
+  server.delete<{Params: ConstructorResultParams}>(
+    "/constructor/result/id/:constructorResultsId",
+    async (request, response) =>
+      await repositoryDeleteConstructorResultById(request, response)
+  );
 
 }
