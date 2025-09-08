@@ -11,7 +11,7 @@ import { repositoryEditConstructorStanding } from "../repository/constructor-sta
 
 export const constructorStandingsController = async (server: FastifyInstance) => {
 
-  // GET - List all constructor standins and Find constructor standins using query string parameters
+  // GET - List all constructor standings and Find constructor standings using query string parameters
   server.get("/constructor/standings",  async (request, response) =>
       await repositoryListConstructorStandings(request, response)
   );  
