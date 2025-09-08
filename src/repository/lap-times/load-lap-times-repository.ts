@@ -114,7 +114,7 @@ export const saveLapTimesToJsonFile = async(filePath: string) => {
         // update de file
         await fsPromises.writeFile(filePath, jsonString, language);
 
-        console.log('JSON data saved to driver-standings.json');  
+        console.log('JSON data saved to lap-times.json');  
   } catch (error) {
     console.error(`Error performing file operations: ${error}`);
   }                  
@@ -132,7 +132,7 @@ export const saveExtLapTimesToJsonFile = async(filePath: string, lapTimesModel: 
         
         listLapTimes = lapTimesModel;
 
-        console.log('JSON data saved to driver-standings.json');  
+        console.log('JSON data saved to lap-times.json');  
   } catch (error) {
     console.error(`Error performing file operations: ${error}`);
   }                  

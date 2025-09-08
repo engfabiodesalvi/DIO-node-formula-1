@@ -9,6 +9,7 @@ import { constructorController } from "./controllers/constructor-controller";
 import { driverStandingsController } from "./controllers/drivers-standings-controller";
 import { lapTimesController } from "./controllers/lap-times-controller";
 import { pitStopsController } from "./controllers/pit-stops-controller";
+import { qualifyingsController } from "./controllers/qualifying-controller";
 
 const server = fastify({ logger: true });
 
@@ -41,6 +42,9 @@ lapTimesController(server);
 
 // Pit Stops Rest HTTP methods
 pitStopsController(server);
+
+// Qualifyings Rest HTTP methods
+qualifyingsController(server);
 
 server.listen({ port: 3333 }, () => {
   console.log("Server init");

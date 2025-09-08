@@ -2,11 +2,11 @@ import { FastifyInstance } from "fastify";
 import { PitStopParams } from "../models/params/pit-stop-params-model";
 import { repositoryListPitStops } from "../repository/pit-stops/list-pit-stops-repository";
 import { repositoryFindPitStopsById } from "../repository/pit-stops/find-pit-stops-by-id-repository";
-import { repositoryDeletePitStopById } from "../repository/pit-stops/delete-pit-stops-by-id-repository";
-import { repositoryDeletePitStop } from "../repository/pit-stops/delete-pit-stops-repository";
-import { repositoryNewPitStop } from "../repository/pit-stops/add-pit-stops-resitory";
-import { repositoryEditPitStop } from "../repository/pit-stops/edit-pit-stops-repository";
-import { repositoryUpsertPitStop } from "../repository/pit-stops/upsert-pit-stops-repository";
+import { repositoryDeletePitStopById } from "../repository/pit-stops/delete-pit-stop-by-id-repository";
+import { repositoryDeletePitStop } from "../repository/pit-stops/delete-pit-stop-repository";
+import { repositoryNewPitStop } from "../repository/pit-stops/add-pit-stop-resitory";
+import { repositoryEditPitStop } from "../repository/pit-stops/edit-pit-stop-repository";
+import { repositoryUpsertPitStop } from "../repository/pit-stops/upsert-pit-stop-repository";
 
 
 export const pitStopsController = async (server: FastifyInstance) => {

@@ -2,11 +2,11 @@ import { FastifyInstance } from "fastify";
 import { LapTimeParams } from "../models/params/lap-time-params-model";
 import { repositoryListLapTimes } from "../repository/lap-times/list-lap-times-repository";
 import { repositoryFindLapTimesById } from "../repository/lap-times/find-lap-times-by-id-repository";
-import { repositoryDeleteLapTime } from "../repository/lap-times/delete-lap-times-repository";
+import { repositoryDeleteLapTime } from "../repository/lap-times/delete-lap-time-repository";
 import { repositoryDeleteLapTimeById } from "../repository/lap-times/delete-lap-times-by-id-repository";
-import { repositoryUpsertLapTime } from "../repository/lap-times/upsert-lap-times-repository";
-import { repositoryNewLapTime } from "../repository/lap-times/add-lap-times-resitory";
-import { repositoryEditLapTime } from "../repository/lap-times/edit-lap-times-repository";
+import { repositoryUpsertLapTime } from "../repository/lap-times/upsert-lap-time-repository";
+import { repositoryNewLapTime } from "../repository/lap-times/add-lap-time-resitory";
+import { repositoryEditLapTime } from "../repository/lap-times/edit-lap-time-repository";
 
 
 export const lapTimesController = async (server: FastifyInstance) => {
