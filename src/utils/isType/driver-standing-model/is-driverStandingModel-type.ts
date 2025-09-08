@@ -1,6 +1,6 @@
 import { DriverStandingModel } from "../../../models/data/driver-standing-model";
 
-export const isDriverStanding = async (
+export const isDriverStandingModel = async (
   newDriverStanding?: DriverStandingModel | undefined
 ): Promise<boolean> => {
     let isTypeOfDriverStanding = false;

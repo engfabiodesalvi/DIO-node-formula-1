@@ -92,7 +92,7 @@ export const saveConstructorStandingsToJsonFile = async(filePath: string) => {
         // update de file
         await fsPromises.writeFile(filePath, jsonString, language);
 
-        console.log('JSON data saved to constructor-standins.json');  
+        console.log('JSON data saved to constructor-standings.json');  
   } catch (error) {
     console.error(`Error performing file operations: ${error}`);
   }                  
