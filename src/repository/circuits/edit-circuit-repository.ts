@@ -85,7 +85,7 @@ export const repositoryEditCircuit = async (
                                     response.type("application/json").code(200); // Ok
                                     return {
                                         "message": `[circuitId: ${editCircuit.circuitId}] edited!`,
-                                        "upsertCircuit": editCircuit};                        
+                                        "editCircuit": editCircuit};                        
                                 }                            
                         
                         } else {

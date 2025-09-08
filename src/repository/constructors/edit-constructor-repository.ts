@@ -86,7 +86,7 @@ export const repositoryEditConstructor = async (
                                     response.type("application/json").code(200); // Ok
                                     return {
                                         "message": `[constructorId: ${editConstructor.constructorId}] edited!`,
-                                        "upsertConstructor": editConstructor};                        
+                                        "editConstructor": editConstructor};                        
                                 }                            
                         
                         } else {

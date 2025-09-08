@@ -89,7 +89,7 @@ export const repositoryEditPitStop = async (
                                     response.type("application/json").code(200); // Ok
                                     return {
                                         "message": `[raceId: ${editPitStop.raceId}] and [driveId: ${editPitStop.driverId}] and [lap: ${editPitStop.lap}] edited!`,
-                                        "upsertPitStop": editPitStop};                        
+                                        "editPitStop": editPitStop};                        
                                 }                            
                         
                         } else {

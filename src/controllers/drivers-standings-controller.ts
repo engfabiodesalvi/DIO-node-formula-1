@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 import { DriverStandingParams } from "../models/params/driver-standing-params-model";
 import { repositoryListDriverStandings } from "../repository/driver-standings/list-driver-standing-repository";
-import { repositoryNewDriverStanding } from "../repository/driver-standings/add-driver-standing-resitory";
+import { repositoryNewDriverStanding } from "../repository/driver-standings/add-driver-standing-repository";
 import { repositoryDeleteDriverStandingById } from "../repository/driver-standings/delete-driver-standing-by-id-repository";
 import { repositoryDeleteDriverStanding } from "../repository/driver-standings/delete-driver-standing-repository";
 import { repositoryEditDriverStanding } from "../repository/driver-standings/edit-driver-standing-repository";

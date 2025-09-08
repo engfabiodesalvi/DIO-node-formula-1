@@ -89,7 +89,7 @@ export const repositoryEditLapTime = async (
                                     response.type("application/json").code(200); // Ok
                                     return {
                                         "message": `[raceId: ${editLapTime.raceId}] and [driveId: ${editLapTime.driverId}] and [lap: ${editLapTime.lap}] edited!`,
-                                        "upsertLapTime": editLapTime};                        
+                                        "editLapTime": editLapTime};                        
                                 }                            
                         
                         } else {

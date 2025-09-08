@@ -85,7 +85,7 @@ export const repositoryEditDriver = async (
                                     response.type("application/json").code(200); // Ok
                                     return {
                                         "message": `[driverId: ${editDriver.driverId}] edited!`,
-                                        "upsertDriver": editDriver};                        
+                                        "edittDriver": editDriver};                        
                                 }                            
                         
                         } else {

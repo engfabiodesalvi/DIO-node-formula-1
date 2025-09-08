@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import { ConstructorParams } from "../models/params/constructor-params-model";
 import { repositoryListConstructors } from "../repository/constructors/list-constructor-repository";
 import { repositoryFindConstructorById } from "../repository/constructors/find-constructor-by-id-repository";
-import { repositoryNewConstructor } from "../repository/constructors/add-constructor-resitory";
+import { repositoryNewConstructor } from "../repository/constructors/add-constructor-repository";
 import { repositoryEditConstructor } from "../repository/constructors/edit-constructor-repository";
 import { repositoryDeleteConstructor } from "../repository/constructors/delete-constructor-repository";
 import { repositoryUpsertConstructor } from "../repository/constructors/upsert-constructor-repository";

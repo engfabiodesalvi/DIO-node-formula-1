@@ -5,7 +5,7 @@ import { repositoryFindLapTimesById } from "../repository/lap-times/find-lap-tim
 import { repositoryDeleteLapTime } from "../repository/lap-times/delete-lap-time-repository";
 import { repositoryDeleteLapTimeById } from "../repository/lap-times/delete-lap-times-by-id-repository";
 import { repositoryUpsertLapTime } from "../repository/lap-times/upsert-lap-time-repository";
-import { repositoryNewLapTime } from "../repository/lap-times/add-lap-time-resitory";
+import { repositoryNewLapTime } from "../repository/lap-times/add-lap-time-repository";
 import { repositoryEditLapTime } from "../repository/lap-times/edit-lap-time-repository";
 
 

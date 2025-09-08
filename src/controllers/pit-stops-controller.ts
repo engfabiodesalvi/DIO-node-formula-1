@@ -4,7 +4,7 @@ import { repositoryListPitStops } from "../repository/pit-stops/list-pit-stops-r
 import { repositoryFindPitStopsById } from "../repository/pit-stops/find-pit-stops-by-id-repository";
 import { repositoryDeletePitStopById } from "../repository/pit-stops/delete-pit-stop-by-id-repository";
 import { repositoryDeletePitStop } from "../repository/pit-stops/delete-pit-stop-repository";
-import { repositoryNewPitStop } from "../repository/pit-stops/add-pit-stop-resitory";
+import { repositoryNewPitStop } from "../repository/pit-stops/add-pit-stop-repository";
 import { repositoryEditPitStop } from "../repository/pit-stops/edit-pit-stop-repository";
 import { repositoryUpsertPitStop } from "../repository/pit-stops/upsert-pit-stop-repository";
 

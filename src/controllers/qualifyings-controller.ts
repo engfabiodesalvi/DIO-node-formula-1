@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import { QualifyingParams } from "../models/params/qualifying-params-model";
 import { repositoryFindQualifyingById } from "../repository/qualifying/find-qualifying-by-id-repository";
 import { repositoryListQualifyings } from "../repository/qualifying/list-qualifyings-repository";
-import { repositoryNewQualifying } from "../repository/qualifying/add-pit-stops-resitory";
+import { repositoryNewQualifying } from "../repository/qualifying/add-qualifying-repository";
 import { repositoryUpsertQualifying } from "../repository/qualifying/upsert-qualifying-repository";
 import { repositoryDeleteQualifying } from "../repository/qualifying/delete-qualifying-repository";
 import { repositoryDeleteQualifyingById } from "../repository/qualifying/delete-qualifying-by-id-repository";

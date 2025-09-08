@@ -86,7 +86,7 @@ export const repositoryEditDriverStanding = async (
                                     response.type("application/json").code(200); // Ok
                                     return {
                                         "message": `[driverStandingsId: ${editDriverStanding.driverStandingsId}] edited!`,
-                                        "upsertDriverStanding": editDriverStanding};                        
+                                        "editDriverStanding": editDriverStanding};                        
                                 }                            
                         
                         } else {

@@ -85,7 +85,7 @@ export const repositoryEditQualifying = async (
                                     response.type("application/json").code(200); // Ok
                                     return {
                                         "message": `[qualifyId: ${editQualifying.qualifyId}] edited!`,
-                                        "upsertQualifying": editQualifying};                        
+                                        "editQualifying": editQualifying};                        
                                 }                            
                         
                         } else {
