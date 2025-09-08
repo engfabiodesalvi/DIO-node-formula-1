@@ -10,20 +10,24 @@ export const isPartialPitStopModel = async (
     if (!Array.isArray(pitStopModel) &&
             pitStopModel !== undefined &&
             typeof pitStopModel.raceId === 'number' &&
-            Number.isInteger(pitStopModel.raceId)) {
+            Number.isInteger(pitStopModel.raceId) &&
+            typeof pitStopModel.driverId === 'number' && 
+            Number.isFinite(pitStopModel.driverId) &&
+            typeof pitStopModel.lap === 'number' && 
+            Number.isFinite(pitStopModel.lap)) {
             
         countKeys--; // typeof pitStopModel.raceId === 'number')
 
-        if (typeof pitStopModel.driverId === 'number' && 
-            Number.isFinite(pitStopModel.driverId))
+        // if (typeof pitStopModel.driverId === 'number' && 
+        //     Number.isFinite(pitStopModel.driverId))
             countKeys--;                 
 
         if (typeof pitStopModel.stop === 'number' && 
             Number.isFinite(pitStopModel.stop))
             countKeys--;                 
 
-        if (typeof pitStopModel.lap === 'number' && 
-            Number.isFinite(pitStopModel.lap))
+        // if (typeof pitStopModel.lap === 'number' && 
+        //     Number.isFinite(pitStopModel.lap))
             countKeys--;                                        
 
         if (typeof pitStopModel.time === 'string')
