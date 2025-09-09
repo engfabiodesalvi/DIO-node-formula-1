@@ -32,7 +32,7 @@ export const repositoryNewSeason = async (
                     // check the data format match with SeasonModel
                     if (await isSeasonModel(newSeason)) { 
 
-                        // checking if driveId > 0                                                
+                        // checking if year > 0                                                
                         if (newSeason.year > 0) {
 
                             // find new season id in database
@@ -74,17 +74,18 @@ export const repositoryNewSeason = async (
                                         "newSeason": newSeason};
                                 }
                             } else {
-                                response.type("application/json").code(400); // bad request
+                                // season alredy inserted.
+                                response.type("application/json").code(409); // Conflict
                                 return {
-                                    "message": `[year: ${newSeason.year}] must be a positive number!`,
-                                    "newSeason": newSeason};                                  
+                                    "message": `[year: ${newSeason.year}] already created!`,
+                                    "newSeason": newSeason};
                             }
+
                         } else {
-                            // season alredy inserted.
-                            response.type("application/json").code(409); // Conflict
+                            response.type("application/json").code(400); // bad request
                             return {
-                                "message": `[year: ${newSeason.year}] already created!`,
-                                "newSeason": newSeason};
+                                "message": `[year: ${newSeason.year}] must be a positive number!`,
+                                "newSeason": newSeason};                                  
                         }
 
                     } else {

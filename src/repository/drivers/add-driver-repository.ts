@@ -72,19 +72,20 @@ export const repositoryNewDriver = async (
                                         "message": `[driverId: ${newDriver.driverId}] wasn't inserted!`,
                                         "newDriver": newDriver};
                                 }
+
                             } else {
-                                response.type("application/json").code(400); // bad request
+                                // driver alredy inserted.
+                                response.type("application/json").code(409); // Conflict
                                 return {
-                                    "message": `[driverId: ${newDriver.driverId}] must be a positive number!`,
-                                    "newDriver": newDriver};                                  
+                                    "message": `[driverId: ${newDriver.driverId}] already created!`,
+                                    "newDriver": newDriver};
                             }
                         } else {
-                            // driver alredy inserted.
-                            response.type("application/json").code(409); // Conflict
+                            response.type("application/json").code(400); // bad request
                             return {
-                                "message": `[driverId: ${newDriver.driverId}] already created!`,
-                                "newDriver": newDriver};
-                        }
+                                "message": `[driverId: ${newDriver.driverId}] must be a non-zero positive number!`,
+                                "newDriver": newDriver};                                  
+                        }                        
 
                     } else {
                         response.type("application/json").code(400); // bad request

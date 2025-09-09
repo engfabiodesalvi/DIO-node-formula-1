@@ -80,12 +80,11 @@ export const repositoryNewCircuit = async (
                                     "newCircuit": newCircuit};
                             }
                         } else {
-                            // circuit alredy inserted.
                             response.type("application/json").code(409); // Conflict
                             return {
-                                "message": `[circuitId: ${newCircuit.circuitId}] already created!`,
-                                "newDriver": newCircuit};                            
-                        }
+                                "message": `[circuitId: ${newCircuit.circuitId}] must be a non-zero positive number!`,
+                                "newDriver": newCircuit};                        
+                        }                                                                     
 
                     } else {
                         response.type("application/json").code(400); // bad request
