@@ -1,11 +1,11 @@
 
 import { FastifyReply, FastifyRequest } from "fastify";
-import { RaceModel } from "../../models/data/race-model";
-import { listRaces } from "./load-races-repository";
-import { RaceParams } from "../../models/params/race-params-model";
+import { ResultModel } from "../../models/data/result";
+import { listResults } from "../results/load-results-repository";
+import { ResultParams } from "../../models/params/result-params-model";
 
-// GET - Find race by Id
-export const repositoryFindRaceById = async (
+// GET - Find result by Id
+export const repositoryFindResultById = async (
     request: FastifyRequest,
     response: FastifyReply,      
 ) => {
@@ -19,40 +19,40 @@ export const repositoryFindRaceById = async (
         if (userToken === process.env.USERTOKEN) {
 
             // partially initialized variable
-            let races:Partial<RaceModel> = {};
-            if (listRaces.length > 0) { 
-                const raceParams = request.params as RaceParams;
-                if (raceParams.raceId) {
-                    const raceId = parseInt(raceParams.raceId) || 0;
-                    if ((raceId > 0) && Number.isInteger(parseFloat(raceParams.raceId) || 0)) {
-                        races = listRaces.filter((raceItem) => {
-                            if (raceId > 0) {
-                                if (!(raceItem.raceId === raceId)) {
-                                    //console.info(`${raceItem.raceId} - ${raceId}`);
+            let results:Partial<ResultModel> = {};
+            if (listResults.length > 0) { 
+                const resultParams = request.params as ResultParams;
+                if (resultParams.resultId) {
+                    const resultId = parseInt(resultParams.resultId) || 0;
+                    if ((resultId > 0) && Number.isInteger(parseFloat(resultParams.resultId) || 0)) {
+                        results = listResults.filter((resultItem) => {
+                            if (resultId > 0) {
+                                if (!(resultItem.resultId === resultId)) {
+                                    //console.info(`${resultItem.resultId} - ${resultId}`);
                                     return false;
                                 } else {
                                     return true;
                                 }
                             }
-                        }) as unknown as RaceModel;
+                        }) as unknown as ResultModel;
                     } else {
                         response.type("application/json").code(400); // bad request
                         return {
-                            "message": `[raceId: ${raceParams.raceId}] must be a positive integer number!`};                              
+                            "message": `[resultId: ${resultParams.resultId}] must be a positive integer number!`};                              
                     }
 
                 } else {
                     response.type("application/json").code(400); // bad request
-                    return {"message": "Send raceId to be find!"} 
+                    return {"message": "Send resultId to be find!"} 
                 }
             }
 
-            if (!(races)) {
+            if (!(results)) {
                 response.type("application/json").code(404);
-                return { message: "Race Not Found" };
+                return { message: "Result Not Found" };
             } else {
                 response.type("application/json").code(200);
-                return { "races": races };
+                return { "results": results };
             }   
         } else {
             response.type("application/json").code(401); // unauthorized
@@ -63,3 +63,4 @@ export const repositoryFindRaceById = async (
         return {"message": "Missing Bearer Token."};
     }            
 };
+

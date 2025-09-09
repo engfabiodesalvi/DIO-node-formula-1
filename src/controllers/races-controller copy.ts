@@ -10,32 +10,32 @@ import { repositoryDeleteRaceById } from "../repository/races/delete-race-by-id-
 
 export const racesController = async (server: FastifyInstance) => {
 
-  // GET - List all pit stops and Find pit stops using query string parameters
+  // GET - List all races and Find races using query string parameters
   server.get("/races",  async (request, response) =>
       await repositoryListRaces(request, response)
   );  
       
-  // GET - Find pit stops by raceId
+  // GET - Find races by raceId
   server.get<{Params: RaceParams}>( "/race/id/:raceId",
     async (request, response) => 
       await repositoryFindRaceById(request, response)
   );
 
-  // POST - Create/insert new pit stop
+  // POST - Create/insert new race
   server.post(
     "/race",
     async (request, response) =>
       await repositoryNewRace(request, response)
   );
 
-  // PUT - (Upsert) Edit or insert new pit stop
+  // PUT - (Upsert) Edit or insert new race
   server.put(
     "/race",
     async (request, response) =>
       await repositoryUpsertRace(request, response)
   );
 
-  // PATCH - Edit a pit stop
+  // PATCH - Edit a race
   server.patch(
     "/race",
     async (request, response) => 

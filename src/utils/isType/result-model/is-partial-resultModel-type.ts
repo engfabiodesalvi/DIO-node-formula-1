@@ -74,7 +74,7 @@ export const isPartialResultModel = async (
         if (typeof resultModel.fastestLapSpeed === 'string')
             countKeys--;
 
-        if (typeof resultModel.statusId === 'string')
+        if (typeof resultModel.statusId === 'number')
             countKeys--;                                     
         
         if (countKeys === 0) {
