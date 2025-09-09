@@ -1,4 +1,4 @@
-import { SeasonModel } from "../../../models/data/season";
+import { SeasonModel } from "../../../models/data/season-model";
 
 export const isSeasonModel = async (
   newSeason?: SeasonModel | undefined

@@ -1,10 +1,11 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { ResultParams } from "../../models/params/result-params-model";
-import { ResultModel } from "../../models/data/result";
-import { listResults, loadResultsJsonFile, pathResultsDataJson, saveExtResultsToJsonFile } from "./load-results-repository";
+import { SprintResultParams } from "../../models/params/sprint-result-params-model";
+import { SprintResultModel } from "../../models/data/sprint-result-model";
+import { listSprintResults, loadSprintResultsJsonFile, pathSprintResultsDataJson, saveExtSprintResultsToJsonFile } from "./load-sprint-results-repository";
 
-// DELETE - Delete a result
-export const repositoryDeleteResultById = async (
+
+// DELETE - Delete a sprint result
+export const repositoryDeleteSprintResultById = async (
     request: FastifyRequest,
     response: FastifyReply
 ) => {
@@ -18,9 +19,9 @@ export const repositoryDeleteResultById = async (
         if (userToken === process.env.USERTOKEN) {
 
             // Obtain deleteResultId from params
-            const resultParams = request.params as ResultParams;
+            const resultParams = request.params as SprintResultParams;
             const deleteResultId = parseInt(resultParams.resultId) || 0;
-            let deleteResult:Partial<ResultModel> = {
+            let deleteResult:Partial<SprintResultModel> = {
                 resultId: deleteResultId
             };
             
@@ -29,7 +30,7 @@ export const repositoryDeleteResultById = async (
             // ckeck if deleteResultId > 0 
             if (deleteResultId > 0 ) {
                 // find resultId in database
-                let foundResult = listResults.filter(
+                let foundResult = listSprintResults.filter(
                     (itemResult)=> {
                         if (itemResult.resultId === deleteResultId) {
 
@@ -40,17 +41,16 @@ export const repositoryDeleteResultById = async (
                         }
                     });            
 
-                // delete item if result match
+                // delete item if sprint result match
                 if (foundResult.length > 0) {              
                     
-                    const newListResults = listResults.filter(
-                        (itemResult)=> !(itemResult.resultId === deleteResult.resultId));
                                                     
                     // save new data to json file
-                    await saveExtResultsToJsonFile(pathResultsDataJson, newListResults);
-                    await loadResultsJsonFile(pathResultsDataJson);
+                    await saveExtSprintResultsToJsonFile(pathSprintResultsDataJson, listSprintResults.filter(
+                            (itemResult) => !(itemResult.resultId === deleteResult.resultId)));
+                    await loadSprintResultsJsonFile(pathSprintResultsDataJson);
 
-                    foundResult = listResults.filter(
+                    foundResult = listSprintResults.filter(
                         (itemResult)=> {
                         if (itemResult.resultId === deleteResultId) {
                                 console.log('Result found!');

@@ -1,4 +1,4 @@
-import { SprintResultModel } from "../../../models/data/sprint-result";
+import { SprintResultModel } from "../../../models/data/sprint-result-model";
 
 export const isPartialSprintResultModel = async (
   sprintResultModel?: SprintResultModel | undefined
@@ -34,9 +34,9 @@ export const isPartialSprintResultModel = async (
             Number.isInteger(sprintResultModel.grid))
             countKeys--;     
 
-        if (typeof sprintResultModel.points === 'number' && 
-            Number.isInteger(sprintResultModel.points))
-            countKeys--;     
+        if (typeof sprintResultModel.position === 'number' && 
+            Number.isInteger(sprintResultModel.position))
+            countKeys--;               
 
         if (typeof sprintResultModel.positionText === 'string')
             countKeys--;
@@ -64,9 +64,8 @@ export const isPartialSprintResultModel = async (
             Number.isInteger(sprintResultModel.fastestLap))
             countKeys--;     
 
-        if (typeof sprintResultModel.fastestLapTime === 'number' && 
-            Number.isInteger(sprintResultModel.fastestLapTime))
-            countKeys--;     
+        if (typeof sprintResultModel.fastestLapTime === 'string')
+            countKeys--; 
 
         if (typeof sprintResultModel.statusId === 'number' && 
             Number.isInteger(sprintResultModel.statusId))

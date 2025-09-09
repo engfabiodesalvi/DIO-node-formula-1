@@ -2,27 +2,27 @@ import * as fs from 'fs';
 import fsPromises from "fs/promises";
 import * as csv from 'csv-parse';
 import path from 'path';
-import { ResultModel } from '../../models/data/result';
+import { SprintResultModel } from '../../models/data/sprint-result-model';
 
 export const language = "utf-8";
 
-// Path for csv results file
-export const pathResultsDataCsv = path.join(__dirname, "../database/csv/results.csv");
-// Path for json results file
-export const pathResultsDataJson = path.join(__dirname, "../database/json/results.json");
-console.log(pathResultsDataCsv);
+// Path for csv sprintResults file
+export const pathSprintResultsDataCsv = path.join(__dirname, "../database/csv/sprint_results.csv");
+// Path for json sprintResults file
+export const pathSprintResultsDataJson = path.join(__dirname, "../database/json/sprint_results.json");
+console.log(pathSprintResultsDataCsv);
 
-// Results data
-export let listResults: ResultModel[] = [];
+// SprintResults data
+export let listSprintResults: SprintResultModel[] = [];
 
 // sorting values through the columns
-export async function sortListResults() {
-    listResults.sort((a, b) => a.resultId - b.resultId);
+export async function sortListSprintResults() {
+    listSprintResults.sort((a, b) => a.resultId - b.resultId);
 }
 
-// load csv to ResultModel[] 
-export const loadResults = async(filePath: string): Promise<ResultModel[]> => {
-    let results: ResultModel[] = [];         
+// load csv to SprintResultModel[] 
+export const loadSprintResults = async(filePath: string): Promise<SprintResultModel[]> => {
+    let sprintResults: SprintResultModel[] = [];         
 
     const readCsvFile = fs.createReadStream(filePath);
 
@@ -37,7 +37,7 @@ export const loadResults = async(filePath: string): Promise<ResultModel[]> => {
                     .pipe(csv.parse( {
                         columns: true, // Treat the first row as column headers (keys)
                     }))
-                    .on('data', (data: any) => results.push({
+                    .on('data', (data: any) => sprintResults.push({
                         resultId: parseInt(data['resultId']) || -1,
                         raceId: parseInt(data['raceId']) || -1,
                         driverId: parseInt(data['driverId']) || -1,
@@ -51,91 +51,89 @@ export const loadResults = async(filePath: string): Promise<ResultModel[]> => {
                         laps: parseInt(data['laps']) || -1,                        
                         time: (data['time']) === "\\N" ? "" : data['time'],
                         milliseconds: parseInt(data['milliseconds']) || -1,                      
-                        fastestLap: parseInt(data['fastestLap']) || -1,                      
-                        rank: parseInt(data['rank']) || -1,                      
+                        fastestLap: parseInt(data['fastestLap']) || -1,                                  
                         fastestLapTime: (data['fastestLapTime']) === "\\N" ? "" : data['fastestLapTime'],
-                        fastestLapSpeed: (data['fastestLapSpeed']) === "\\N" ? "" : data['fastestLapSpeed'],
-                        statusId: parseInt(data['rank']) || -1
+                        statusId: parseInt(data['statusId']) || -1
                     }))
-                    .on('end', () => resolve(results))
+                    .on('end', () => resolve(sprintResults))
                     .on('error', (error: any) => {
                         console.error('An error occurred while parsing file:', error);
                         reject(error)
                     });
-        }); 
+        });
    
 };
 
-// loading results from csv file
-export const loadResultsCsvFile = async(filePathCsv: string, filePathJson: string) => {
-    await loadResults(filePathCsv)
-    .then((loadResults: ResultModel[]) => {
-        listResults = loadResults;
-        if (listResults.length > 0) {      
-        console.log(listResults[0])
-        console.log(listResults[1])
-        console.log(listResults[2])
+// loading sprint results from csv file
+export const loadSprintResultsCsvFile = async(filePathCsv: string, filePathJson: string) => {
+    await loadSprintResults(filePathCsv)
+    .then((loadSprintResults: SprintResultModel[]) => {
+        listSprintResults = loadSprintResults;
+        if (listSprintResults.length > 0) {      
+        console.log(listSprintResults[0])
+        console.log(listSprintResults[1])
+        console.log(listSprintResults[2])
         }    
-        saveResultsToJsonFile(filePathJson);
+        saveSprintResultsToJsonFile(filePathJson);
     })
     .catch((error: any) => console.error('Error while converting CSV: ', error));
 }
 
-// loading results from json file
-export const loadResultsJsonFile = async(filePathJson: string) => {
+// loading sprint results from json file
+export const loadSprintResultsJsonFile = async(filePathJson: string) => {
   
     const rawData = fsPromises.readFile(filePathJson, language);
     const jsonFile = JSON.parse(await rawData);
-    listResults = jsonFile['results'];
-    if (listResults.length > 0) {      
-        console.log(listResults[0])
-        console.log(listResults[1])
-        console.log(listResults[2])
+    listSprintResults = jsonFile['sprintResults'];
+    if (listSprintResults.length > 0) {      
+        console.log(listSprintResults[0])
+        console.log(listSprintResults[1])
+        console.log(listSprintResults[2])
     }        
-    console.log("Results data loaded from json file!");
+    console.log("SprintResults data loaded from json file!");
 };
 
-// save ResultModel[] to json file
-export const saveResultsToJsonFile = async(filePath: string) => {
+// save SprintResultModel[] to json file
+export const saveSprintResultsToJsonFile = async(filePath: string) => {
     try {
-        const jsonFile = {results: listResults};
+        const jsonFile = {sprintResults: listSprintResults};
         const jsonString = JSON.stringify(jsonFile, null, 2); // Stringify with pretty-printing
         //const jsonString = JSON.stringify(jsonFile); // Stringify with pretty-printing
 
         // update de file
         await fsPromises.writeFile(filePath, jsonString, language);
 
-        console.log('JSON data saved to results.json');  
+        console.log('JSON data saved to sprintResults.json');  
   } catch (error) {
     console.error(`Error performing file operations: ${error}`);
   }                  
 };
 
-// save external ResultModel[] to json file
-export const saveExtResultsToJsonFile = async(filePath: string, resultsModel: ResultModel[]) => {
+// save external SprintResultModel[] to json file
+export const saveExtSprintResultsToJsonFile = async(filePath: string, sprintResultsModel: SprintResultModel[]) => {
     try {
-        const jsonFile = {results: resultsModel};
+        const jsonFile = {sprintResults: sprintResultsModel};
         const jsonString = JSON.stringify(jsonFile, null, 2); // Stringify with pretty-printing
         //const jsonString = JSON.stringify(jsonFile); // Stringify with pretty-printing
 
         // update de file
         await fsPromises.writeFile(filePath, jsonString, language);
         
-        listResults = resultsModel;
+        listSprintResults = sprintResultsModel;
 
-        console.log('JSON data saved to results.json');  
+        console.log('JSON data saved to sprintResults.json');  
   } catch (error) {
     console.error(`Error performing file operations: ${error}`);
   }                  
 }
 
 // Verify if json file exists!
-if (fs.existsSync(pathResultsDataJson)) {
+if (fs.existsSync(pathSprintResultsDataJson)) {
     // Load data from json file
-    loadResultsJsonFile(pathResultsDataJson)
+    loadSprintResultsJsonFile(pathSprintResultsDataJson)
     console.log("File exists.");
 } else {
     // Create json file from csv file.
-    loadResultsCsvFile(pathResultsDataCsv, pathResultsDataJson);
+    loadSprintResultsCsvFile(pathSprintResultsDataCsv, pathSprintResultsDataJson);
     console.log("File does not exists.");
 }

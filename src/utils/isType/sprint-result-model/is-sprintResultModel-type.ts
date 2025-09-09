@@ -1,4 +1,4 @@
-import { SprintResultModel } from "../../../models/data/sprint-result";
+import { SprintResultModel } from "../../../models/data/sprint-result-model";
 
 export const isSprintResultModel = async (
   newSprintResult?: SprintResultModel | undefined
@@ -20,8 +20,8 @@ export const isSprintResultModel = async (
             typeof newSprintResult.points === 'number' && Number.isInteger(newSprintResult.points) &&
             typeof newSprintResult.laps === 'number' && Number.isInteger(newSprintResult.laps) &&
             typeof newSprintResult.time === 'string' &&
-            typeof newSprintResult.milliseconds === 'string' &&
-            typeof newSprintResult.fastestLap === 'string' &&
+            typeof newSprintResult.milliseconds === 'number' && Number.isInteger(newSprintResult.milliseconds) &&
+            typeof newSprintResult.fastestLap === 'number' && Number.isInteger(newSprintResult.fastestLap) &&
             typeof newSprintResult.fastestLapTime === 'string' &&
             typeof newSprintResult.statusId === 'number' && Number.isInteger(newSprintResult.statusId) &&
 

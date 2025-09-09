@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import fsPromises from "fs/promises";
 import * as csv from 'csv-parse';
 import path from 'path';
-import { ResultModel } from '../../models/data/result';
+import { ResultModel } from '../../models/data/result-model';
 
 export const language = "utf-8";
 

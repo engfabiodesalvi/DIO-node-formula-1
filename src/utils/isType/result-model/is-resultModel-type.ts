@@ -1,4 +1,4 @@
-import { ResultModel } from "../../../models/data/result";
+import { ResultModel } from "../../../models/data/result-model";
 
 
 export const isResultModel = async (

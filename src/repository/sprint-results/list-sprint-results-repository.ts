@@ -1,9 +1,9 @@
 
 import { FastifyReply, FastifyRequest } from "fastify";
-import { listResults } from "../results/load-results-repository";
+import { listSprintResults } from "./load-sprint-results-repository";
 
-// GET - List all results and Find results using query parameters
-export const repositoryListResults = async (
+// GET - List all sprint results and Find sprint results using query parameters
+export const repositoryListSprintResults = async (
     request: FastifyRequest,
     response: FastifyReply,   
 ) => {
@@ -16,16 +16,16 @@ export const repositoryListResults = async (
         // verify if Token is ok
         if (userToken === process.env.USERTOKEN) {    
 
-            // reading the results values
+            // reading the sprint results values
             const { 
                 resultId, raceId, driverId, constructorId, number, grid, position, positionText, positionOrder,
-                points, laps, time, milliseconds, fastestLap, rank, fastestLapTime, fastestLapSpeed, statusId
+                points, laps, time, milliseconds, fastestLap, fastestLapTime, statusId
             } = request.query as any;
 
             // // To verify sended values
             // console.log(JSON.stringify({
             //    resultId, raceId, driverId, constructorId, number, grid, position, positionText,
-            //    points, laps, time, milliseconds, fastestLap, rank, fastestLapTime, fastestLapSpeed, statusId
+            //    points, laps, time, milliseconds, fastestLap, fastestLapTime, statusId
             // }, null, 2));
             // console.log(JSON.stringify(request.query, null, 2));    
             // console.log(JSON.stringify(request.body, null, 2)); 
@@ -33,7 +33,7 @@ export const repositoryListResults = async (
             // console.log(`${typeof(resultId) === 'string'}`)
             // console.log(`${Number.isInteger(parseFloat(resultId))} - ${resultId}`);
 
-            const results = listResults.filter((resultsItem) => {
+            const sprintResults = listSprintResults.filter((resultsItem) => {
                 let allMatch = true;                
                     
                 // Comparing values
@@ -216,35 +216,11 @@ export const repositoryListResults = async (
                     } else {
                         allMatch = false;
                     }
-                }
-                
-                // vetRank = [minRank, maxRank]
-                if (rank) {
-                    const vetRank = rank.split(",");
-                    if (vetRank.length === 1) {
-                        if (!(resultsItem.rank === parseFloat(vetRank))) {
-                                allMatch = false;
-                        } 
-                    } else if (vetRank.length === 2) {
-                        if (!(resultsItem.rank >= parseFloat(vetRank[0]) &&
-                            resultsItem.rank <= parseFloat(vetRank[1]))) {
-                                allMatch = false;
-                        }                        
-                    } else {
-                        allMatch = false;
-                    }
-                }                
+                }                            
                 
                 if (fastestLapTime?.length > 0) {
                     if(!(resultsItem.fastestLapTime.toLowerCase()
                         .includes(fastestLapTime.toLowerCase()))) {
-                        allMatch = false;
-                    }
-                }  
-
-                if (fastestLapSpeed?.length > 0) {
-                    if(!(resultsItem.fastestLapSpeed.toLowerCase()
-                        .includes(fastestLapSpeed.toLowerCase()))) {
                         allMatch = false;
                     }
                 }                          
@@ -260,12 +236,12 @@ export const repositoryListResults = async (
                 return allMatch;
             });
 
-            if (!(results.length > 0)) {
+            if (!(sprintResults.length > 0)) {
                 response.type("application/json").code(404);
-                return { message: "Results Not Found" };
+                return { message: "Sprint Results Not Found" };
             } else {
                 response.type("application/json").code(200);
-                return { results: results };
+                return { sprintResults: sprintResults };
             }   
         } else {
             response.type("application/json").code(401); // unauthorized

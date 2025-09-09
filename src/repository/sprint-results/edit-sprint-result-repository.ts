@@ -1,10 +1,11 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { ResultModel } from "../../models/data/result";
-import { isPartialResultModel } from "../../utils/isType/result-model/is-partial-resultModel-type";
-import { listResults, loadResultsJsonFile, pathResultsDataJson, saveExtResultsToJsonFile, sortListResults } from "./load-results-repository";
+import { SprintResultModel } from "../../models/data/sprint-result-model";
+import { isPartialSprintResultModel } from "../../utils/isType/sprint-result-model/is-partial-sprintResultModel-type";
+import { listSprintResults, loadSprintResultsJsonFile, pathSprintResultsDataJson, saveExtSprintResultsToJsonFile } from "./load-sprint-results-repository";
+import { sortListResults } from "../results/load-results-repository";
 
-// PATCH - Edit a result
-export const repositoryEditResult = async (
+// PATCH - Edit a sprint result
+export const repositoryEditSprintResult = async (
     request: FastifyRequest,
     response: FastifyReply
 ) => {
@@ -19,29 +20,29 @@ export const repositoryEditResult = async (
             
             // ckeck if reqBody is defined
             if (reqBody) {            
-                // check for editResult key in data body
+                // check for editSprintResult key in data body
                 let foundKeyResult = false;
                 for (const key in reqBody) {
-                    if (key === "editResult")
+                    if (key === "editSprintResult")
                         foundKeyResult = true;
                 }
-                // proceed if the editResult object was found
+                // proceed if the editSprintResult object was found
                 if (foundKeyResult) {
-                    // obtain data from editResult object
-                    let editResult = reqBody['editResult'] as ResultModel; 
-                    console.log(editResult);
-                    // check the data format partially match with ResultModel
-                    if (await isPartialResultModel(editResult)) { 
+                    // obtain data from editSprintResult object
+                    let editSprintResult = reqBody['editSprintResult'] as SprintResultModel; 
+                    console.log(editSprintResult);
+                    // check the data format partially match with SprintResultModel
+                    if (await isPartialSprintResultModel(editSprintResult)) { 
 
                         // find pitStopId resultId database
-                        if (editResult.resultId > 0) {
+                        if (editSprintResult.resultId > 0) {
                             // checking if the result is aready registered
                             let itemMatch = false;
-                            listResults.forEach((itemResult) => {
-                                if (itemResult.resultId === editResult.resultId) {
-                                        // edit partially result properties
-                                        for (let key in editResult) {
-                                            itemResult[key as keyof object] = editResult[key as keyof object];
+                            listSprintResults.forEach((itemSprintResult) => {
+                                if (itemSprintResult.resultId === editSprintResult.resultId) {
+                                        // edit partially sprint result properties
+                                        for (let key in editSprintResult) {
+                                            itemSprintResult[key as keyof object] = editSprintResult[key as keyof object];
                                         }
                                         itemMatch = itemMatch || true;
                                 } else {
@@ -52,22 +53,22 @@ export const repositoryEditResult = async (
                             // item if stops don't match
                             if (!itemMatch) {
                                 response.type("application/json").code(404);
-                                return { message: "Result Not Found" };                                                
+                                return { message: "Sprint Result Not Found" };                                                
                             }
 
                             // ascendant order circuits 
                             await sortListResults();
                             // save insert/edit data to json file
-                            await saveExtResultsToJsonFile(pathResultsDataJson, listResults);
-                            await loadResultsJsonFile(pathResultsDataJson);       
+                            await saveExtSprintResultsToJsonFile(pathSprintResultsDataJson, listSprintResults);
+                            await loadSprintResultsJsonFile(pathSprintResultsDataJson);       
                             
                             // find for inserted/edited result
-                            let foundResult = listResults.filter(
-                                (itemResult)=> {
-                                if (itemResult.resultId === editResult.resultId) {
-                                        console.log('Result found!');
+                            let foundSprintResult = listSprintResults.filter(
+                                (itemSprintResult)=> {
+                                if (itemSprintResult.resultId === editSprintResult.resultId) {
+                                        console.log('Sprint Result found!');
                                         // load all data
-                                        editResult = itemResult;
+                                        editSprintResult = itemSprintResult;
                                         return true;
                                     }else{
                                         return false;
@@ -75,24 +76,24 @@ export const repositoryEditResult = async (
                                 });     
                                 
                                 // if ok return the item                    
-                                if (foundResult.length === 0) {
-                                    console.log("Result wasn't edited!");
+                                if (foundSprintResult.length === 0) {
+                                    console.log("Sprint Result wasn't edited!");
                                     response.type("application/json").code(500); // internal server error  
                                     return {
-                                        "message": `[resultId: ${editResult.resultId}] wasn't edited!`,
-                                        "editResult": editResult};
+                                        "message": `[resultId: ${editSprintResult.resultId}] wasn't edited!`,
+                                        "editSprintResult": editSprintResult};
                                 } else {
                                     response.type("application/json").code(200); // Ok
                                     return {
-                                        "message": `[resultId: ${editResult.resultId}] edited!`,
-                                        "editResult": editResult};                        
+                                        "message": `[resultId: ${editSprintResult.resultId}] edited!`,
+                                        "editSprintResult": editSprintResult};                        
                                 }                            
                         
                         } else {
                             response.type("application/json").code(400); // bad request
                             return {
-                                "message": `[resultId: ${editResult.resultId}] must be a positive number!`,
-                                "editResult": editResult};                
+                                "message": `[resultId: ${editSprintResult.resultId}] must be a positive number!`,
+                                "editSprintResult": editSprintResult};                
                         }
 
                     } else {
@@ -102,7 +103,7 @@ export const repositoryEditResult = async (
                     
                 } else {
                     response.type("application/json").code(400); // bad request
-                    return {"message": "Send result data to be edited!"}              
+                    return {"message": "Send sprint result data to be edited!"}              
                 }
 
             } else {

@@ -1,6 +1,6 @@
 
 import { FastifyReply, FastifyRequest } from "fastify";
-import { ResultModel } from "../../models/data/result";
+import { ResultModel } from "../../models/data/result-model";
 import { listResults } from "../results/load-results-repository";
 import { ResultParams } from "../../models/params/result-params-model";
 

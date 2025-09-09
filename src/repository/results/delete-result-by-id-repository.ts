@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { ResultParams } from "../../models/params/result-params-model";
-import { ResultModel } from "../../models/data/result";
+import { ResultModel } from "../../models/data/result-model";
 import { listResults, loadResultsJsonFile, pathResultsDataJson, saveExtResultsToJsonFile } from "./load-results-repository";
 
 // DELETE - Delete a result

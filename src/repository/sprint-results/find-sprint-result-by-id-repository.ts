@@ -1,11 +1,11 @@
 
 import { FastifyReply, FastifyRequest } from "fastify";
-import { ResultModel } from "../../models/data/result";
-import { listResults } from "../results/load-results-repository";
-import { ResultParams } from "../../models/params/result-params-model";
+import { SprintResultModel } from "../../models/data/sprint-result-model";
+import { listSprintResults } from "./load-sprint-results-repository";
+import { SprintResultParams } from "../../models/params/sprint-result-params-model";
 
-// GET - Find result by Id
-export const repositoryFindResultById = async (
+// GET - Find sprint sprintResult by Id
+export const repositoryFindSprintResultById = async (
     request: FastifyRequest,
     response: FastifyReply,      
 ) => {
@@ -19,26 +19,26 @@ export const repositoryFindResultById = async (
         if (userToken === process.env.USERTOKEN) {
 
             // partially initialized variable
-            let results:Partial<ResultModel> = {};
-            if (listResults.length > 0) { 
-                const resultParams = request.params as ResultParams;
-                if (resultParams.resultId) {
-                    const resultId = parseInt(resultParams.resultId) || 0;
-                    if ((resultId > 0) && Number.isInteger(parseFloat(resultParams.resultId) || 0)) {
-                        results = listResults.filter((resultItem) => {
+            let sprintResults:Partial<SprintResultModel> = {};
+            if (listSprintResults.length > 0) { 
+                const sprintResultParams = request.params as SprintResultParams;
+                if (sprintResultParams.resultId) {
+                    const resultId = parseInt(sprintResultParams.resultId) || 0;
+                    if ((resultId > 0) && Number.isInteger(parseFloat(sprintResultParams.resultId) || 0)) {
+                        sprintResults = listSprintResults.filter((sprintResultItem) => {
                             if (resultId > 0) {
-                                if (!(resultItem.resultId === resultId)) {
-                                    //console.info(`${resultItem.resultId} - ${resultId}`);
+                                if (!(sprintResultItem.resultId === resultId)) {
+                                    //console.info(`${sprintResultItem.resultId} - ${resultId}`);
                                     return false;
                                 } else {
                                     return true;
                                 }
                             }
-                        }) as unknown as ResultModel;
+                        }) as unknown as SprintResultModel;
                     } else {
                         response.type("application/json").code(400); // bad request
                         return {
-                            "message": `[resultId: ${resultParams.resultId}] must be a positive integer number!`};                              
+                            "message": `[resultId: ${sprintResultParams.resultId}] must be a positive integer number!`};                              
                     }
 
                 } else {
@@ -47,12 +47,12 @@ export const repositoryFindResultById = async (
                 }
             }
 
-            if (!(results)) {
+            if (!(sprintResults)) {
                 response.type("application/json").code(404);
-                return { message: "Result Not Found" };
+                return { message: "SprintResult Not Found" };
             } else {
                 response.type("application/json").code(200);
-                return { "results": results };
+                return { "sprintResults": sprintResults };
             }   
         } else {
             response.type("application/json").code(401); // unauthorized

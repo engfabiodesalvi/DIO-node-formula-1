@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { ResultModel } from "../../models/data/result";
+import { ResultModel } from "../../models/data/result-model";
 import { isPartialResultModel } from "../../utils/isType/result-model/is-partial-resultModel-type";
 import { listResults, loadResultsJsonFile, pathResultsDataJson, saveExtResultsToJsonFile } from "./load-results-repository";
 
