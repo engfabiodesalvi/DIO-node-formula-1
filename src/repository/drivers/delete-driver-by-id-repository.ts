@@ -1,3 +1,4 @@
+
 import { FastifyReply, FastifyRequest } from "fastify";
 import { DriverModel } from "../../models/data/driver-model";
 import { listDrivers, loadDriversJsonFile, pathDriversDataJson, saveExtDriversToJsonFile } from "./load-drivers-repository";

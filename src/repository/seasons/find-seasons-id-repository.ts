@@ -1,10 +1,11 @@
-import { FastifyReply, FastifyRequest } from "fastify";
-import { DriverModel } from "../../models/data/driver-model";
-import { listDrivers } from "./load-drivers-repository";
-import { DriverParams } from "../../models/params/driver-params-model";
 
-// GET - Find driver by Id
-export const repositoryFindDriverById = async (
+import { FastifyReply, FastifyRequest } from "fastify";
+import { SeasonModel } from "../../models/data/season";
+import { SeasonParams } from "../../models/params/season-params-model";
+import { listSeasons } from "./load-seasons-repository";
+
+// GET - Find season by Id
+export const repositoryFindSeasonById = async (
     request: FastifyRequest,
     response: FastifyReply,      
 ) => {
@@ -18,40 +19,40 @@ export const repositoryFindDriverById = async (
         if (userToken === process.env.USERTOKEN) {
 
             // partially initialized variable
-            let driver:Partial<DriverModel> = {};
-            if (listDrivers.length > 0) { 
-                const driverParams = request.params as DriverParams;
-                if (driverParams.driverId) {
-                    const driverId = parseInt(driverParams.driverId) || 0;
-                    if ((driverId > 0) && Number.isInteger(parseFloat(driverParams.driverId) || 0)) {
-                        driver = listDrivers.find((driverItem) => {              
-                            if (driverId > 0) {
-                                if (!(driverItem.driverId === driverId)) {
-                                    console.info(`${driverItem.driverId} - ${driverId}`);
+            let season:Partial<SeasonModel> = {};
+            if (listSeasons.length > 0) { 
+                const seasonParams = request.params as SeasonParams;
+                if (seasonParams.year) {
+                    const year = parseInt(seasonParams.year) || 0;
+                    if ((year > 0) && Number.isInteger(parseFloat(seasonParams.year) || 0)) {
+                        season = listSeasons.find((seasonItem) => {              
+                            if (year > 0) {
+                                if (!(seasonItem.year === year)) {
+                                    console.info(`${seasonItem.year} - ${year}`);
                                     return false;            
                                 } else {
                                     return true;
                                 }
                             } 
-                        }) as DriverModel;
+                        }) as SeasonModel;
                     } else {
                         response.type("application/json").code(400); // bad request
                         return {
-                            "message": `[driverId: ${driverParams.driverId}] must be a positive integer number!`};                              
+                            "message": `[year: ${seasonParams.year}] must be a positive integer number!`};                              
                     }
 
                 } else {
                     response.type("application/json").code(400); // bad request
-                    return {"message": "Send driverId to be find!"} 
+                    return {"message": "Send year to be find!"} 
                 }
             }
 
-            if (!(driver)) {
+            if (!(season)) {
                 response.type("application/json").code(404);
-                return { message: "Driver Not Found" };
+                return { message: "Season Not Found" };
             } else {
                 response.type("application/json").code(200);
-                return { "driver": driver };
+                return { "season": season };
             }   
         } else {
             response.type("application/json").code(401); // unauthorized
