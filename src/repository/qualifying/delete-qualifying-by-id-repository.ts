@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { QualifyingParams } from "../../models/params/pit-stop-params-model";
-import { QualifyingModel } from "../../models/data/pit-stop-model";
 import { listQualifyings, loadQualifyingsJsonFile, pathQualifyingsDataJson, saveExtQualifyingsToJsonFile } from "./load-qualifyings-repository";
+import { QualifyingParams } from "../../models/params/qualifying-params-model";
+import { QualifyingModel } from "../../models/data/qualifying-model";
 
 // DELETE - Delete a qualifying
 export const repositoryDeleteQualifyingById = async (

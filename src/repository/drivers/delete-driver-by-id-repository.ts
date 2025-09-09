@@ -60,7 +60,7 @@ export const repositoryDeleteDriverById = async (
 
                     // if ok return the item                    
                     if (foundDriver.length === 0) {
-                        console.log("Drever deleted");
+                        console.log("Driver deleted");
                         response.type("application/json").code(200); // not content                                    
                         return {
                             "message": `[driverId: ${deleteDriver.driverId}] deleted!`,

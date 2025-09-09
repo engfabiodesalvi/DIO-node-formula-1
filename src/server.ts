@@ -14,6 +14,7 @@ import { resultsController } from "./controllers/results-controller";
 import { racesController } from "./controllers/races-controller copy";
 import { seasonsController } from "./controllers/seasons-controller";
 import { sprintResultsController } from "./controllers/sprint-results-controller";
+import { statusController } from "./controllers/status-controller";
 
 const server = fastify({ logger: true });
 
@@ -61,6 +62,9 @@ seasonsController(server);
 
 // Seasons Rest HTTP methods
 sprintResultsController(server);
+
+// Status Rest HTTP methods
+statusController(server);
 
 server.listen({ port: 3333 }, () => {
   console.log("Server init");

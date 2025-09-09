@@ -1,61 +1,62 @@
+import { StatusParams } from "../models/params/status-params-model";
+import { repositoryFindStatusById } from "../repository/status/find-status-id-repository";
+import { repositoryUpsertStatus } from "../repository/status/upsert-status-repository";
+import { repositoryEditStatus } from "../repository/status/edit-status-repository";
+import { repositoryDeleteStatusById } from "../repository/status/delete-status-by-id-repository";
+import { repositoryListStatus } from "../repository/status/list-status-repository";
 import { FastifyInstance } from "fastify";
-import { repositoryListSeasons } from "../repository/seasons/list-seasons-repository";
-import { repositoryFindSeasonById } from "../repository/seasons/find-seasons-id-repository";
-import { SeasonParams } from "../models/params/season-params-model";
-import { repositoryNewSeason } from "../repository/seasons/add-season-repository";
-import { repositoryDeleteSeasonById } from "../repository/seasons/delete-season-by-id-repository";
-import { repositoryDeleteSeason } from "../repository/seasons/delete-season-repositry";
-import { repositoryEditSeason } from "../repository/seasons/edit-season-repository";
-import { repositoryUpsertSeason } from "../repository/seasons/upsert-season-repository";
+import { repositoryDeleteStatus } from "../repository/status/delete-status-repositry";
+import { repositoryNewStatus } from "../repository/status/add-status-repository";
 
+export const statusController = async (server: FastifyInstance) => {
 
-
-export const seasonsController = async (server: FastifyInstance) => {
-
-  // GET - List all seasons and Find seasons using query string parameters
-  server.get("/seasons",  async (request, response) =>
-      await repositoryListSeasons(request, response)
+  // GET - List all status and Find status using query string parameters
+  server.get("/status",  async (request, response) =>
+      await repositoryListStatus(request, response)
   );  
       
-  // GET - Find seasons by seasonId
-  server.get<{Params: SeasonParams}>( "/season/year/:year",
+  // GET - Find status by statusId
+  server.get<{Params: StatusParams}>( 
+    "/status/id/:statusId",
     async (request, response) => 
-      await repositoryFindSeasonById(request, response)
+      await repositoryFindStatusById(request, response)
   );
 
-  // POST - Create/insert new season
+  // POST - Create/insert new status
   server.post(
-    "/season",
+    "/status",
     async (request, response) =>
-      await repositoryNewSeason(request, response)
+      await repositoryNewStatus(request, response)
   );
 
-  // PUT - (Upsert) Edit or insert new season
+  // PUT - (Upsert) Edit or insert new status
   server.put(
-    "/season",
+    "/status",
     async (request, response) =>
-      await repositoryUpsertSeason(request, response)
+      await repositoryUpsertStatus(request, response)
   );
 
-  // PATCH - Edit a season
+  // PATCH - Edit a status
   server.patch(
-    "/season",
+    "/status",
     async (request, response) => 
-    await repositoryEditSeason(request, response)
+    await repositoryEditStatus(request, response)
   );
 
-  // DELETE - Delete a season
+  // DELETE - Delete a status
   server.delete(
-    "/season",
+    "/status",
     async (request, response) =>
-      await repositoryDeleteSeason(request, response)
+      await repositoryDeleteStatus(request, response)
   );
 
-  // DELETE - Delete a season by year
-  server.delete<{Params: SeasonParams}>(
-    "/season/year/:year",
+  // DELETE - Delete a status by year
+  server.delete<{Params: StatusParams}>(
+    "/status/id/:statusId",
     async (request, response) =>
-      await repositoryDeleteSeasonById(request, response)
+      await repositoryDeleteStatusById(request, response)
   );
 
 }
+
+

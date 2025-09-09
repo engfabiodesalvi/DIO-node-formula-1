@@ -1,11 +1,11 @@
 
 import { FastifyReply, FastifyRequest } from "fastify";
-import { SeasonModel } from "../../models/data/season-model";
-import { SeasonParams } from "../../models/params/season-params-model";
-import { listSeasons } from "./load-seasons-repository";
+import { StatusModel } from "../../models/data/status-model";
+import { listStatus } from "./load-status-repository";
+import { StatusParams } from "../../models/params/status-params-model";
 
-// GET - Find season by Id
-export const repositoryFindSeasonById = async (
+// GET - Find status by Id
+export const repositoryFindStatusById = async (
     request: FastifyRequest,
     response: FastifyReply,      
 ) => {
@@ -19,40 +19,40 @@ export const repositoryFindSeasonById = async (
         if (userToken === process.env.USERTOKEN) {
 
             // partially initialized variable
-            let season:Partial<SeasonModel> = {};
-            if (listSeasons.length > 0) { 
-                const seasonParams = request.params as SeasonParams;
-                if (seasonParams.year) {
-                    const year = parseInt(seasonParams.year) || 0;
-                    if ((year > 0) && Number.isInteger(parseFloat(seasonParams.year) || 0)) {
-                        season = listSeasons.find((seasonItem) => {              
-                            if (year > 0) {
-                                if (!(seasonItem.year === year)) {
-                                    console.info(`${seasonItem.year} - ${year}`);
+            let status:Partial<StatusModel> = {};
+            if (listStatus.length > 0) { 
+                const statusParams = request.params as StatusParams;
+                if (statusParams.statusId) {
+                    const statusId = parseInt(statusParams.statusId) || 0;
+                    if ((statusId > 0) && Number.isInteger(parseFloat(statusParams.statusId) || 0)) {
+                        status = listStatus.find((statusItem) => {              
+                            if (statusId > 0) {
+                                if (!(statusItem.statusId === statusId)) {
+                                    console.info(`${statusItem.statusId} - ${statusId}`);
                                     return false;            
                                 } else {
                                     return true;
                                 }
                             } 
-                        }) as SeasonModel;
+                        }) as StatusModel;
                     } else {
                         response.type("application/json").code(400); // bad request
                         return {
-                            "message": `[year: ${seasonParams.year}] must be a positive integer number!`};                              
+                            "message": `[statusId: ${statusParams.statusId}] must be a positive integer number!`};                              
                     }
 
                 } else {
                     response.type("application/json").code(400); // bad request
-                    return {"message": "Send year to be find!"} 
+                    return {"message": "Send statusId to be find!"} 
                 }
             }
 
-            if (!(season)) {
+            if (!(status)) {
                 response.type("application/json").code(404);
-                return { message: "Season Not Found" };
+                return { message: "Status Not Found" };
             } else {
                 response.type("application/json").code(200);
-                return { "season": season };
+                return { "status": status };
             }   
         } else {
             response.type("application/json").code(401); // unauthorized

@@ -62,7 +62,7 @@ export const repositoryDeleteCircuitById = async (
                         console.log("Circuit deleted");
                         response.type("application/json").code(200); // not content                                    
                         return {
-                            "message": `[driverId: ${deleteCircuit.circuitId}] deleted!`,
+                            "message": `[circuitId: ${deleteCircuit.circuitId}] deleted!`,
                             "deleteCircuit": deleteCircuit};
                     } else {
                         response.type("application/json").code(500); // internal server error
