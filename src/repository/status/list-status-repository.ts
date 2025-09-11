@@ -58,7 +58,7 @@ export const repositoryListStatus = async (
                 return { message: "Status Not Found" };
             } else {
                 response.type("application/json").code(200);
-                return { statusFilter };
+                return { status: statusFilter };
             }   
         } else {
             response.type("application/json").code(401); // unauthorized
