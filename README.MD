@@ -57,11 +57,16 @@ Se o **Bearer Token** não for enviado é retornado o código **401 UNAUTHORIZED
 Já para o **Bearer Token** enviado incorretamente é retornado o código **401 UNAUTHORIZED** com a mensagem **Bearer Token wrong**.
 
 
-### Resuisição GET
+### Resuisição GET (List)
 
 A requisição **GET** retorna um objeto contendo na chave (*key*) o nome da base de dados que foi requisitado e no campo valor (*value*) retorna um vetor com os registros encontrados nesta base de dados. 
 Se houver registros é retornado o código **200 OK**.
 Caso não houver registros é retornado o código **404 NOT FOUND**.
+Pode-se utilizar a ***query string***, formada pelos ***quey parameters***, para selecinar os registros a serem retornados.\
+A ***query string*** é enviada na **URL** após o símbolo **?**.
+Também pose-se utilizar a busca por um determinado **Id** utlizando o **endpoint** juntamente com o **Id** do registro desejado.
+As três abordagens de requisição de dados estão exemplificadas abaixo.
+
 
 ### 
 - **Base de dados**
@@ -253,6 +258,7 @@ Caso não houver registros é retornado o código **404 NOT FOUND**.
                         "q3": "1:26.714"
                     },
                     ...
+                ]                
             }            
             ```
 
@@ -395,7 +401,7 @@ Caso não houver registros é retornado o código **404 NOT FOUND**.
             }            
             ```
 
-### Resquisição POST
+### Resquisição POST (Add)
 
 A requisição **POST** insere um item na base de dados desejada.\
 O item enviado deve possuir todos os campos preenchidos com o seu devido tipo de dado.\
@@ -475,8 +481,7 @@ Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de
         - **Corpo da mensagem:**
             ```JSON
             {
-                "newConstructor":
-                {
+                "newConstructor": {
                     "constructorId": 1,
                     "constructorRef": "mclaren",
                     "name": "McLaren",
@@ -508,27 +513,26 @@ Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de
         - **Corpo da mensagem:**
             ```JSON
             {
-                "newRace1":
-                    {
-                        "raceId": 2,
-                        "year": 2009,
-                        "round": 2,
-                        "circuitId": 2,
-                        "name": "Malaysian Grand Prix",
-                        "date": "2009-04-05",
-                        "time": "09:00:00",
-                        "url": "http://en.wikipedia.org/wiki/2009_Malaysian_Grand_Prix",
-                        "fp1_date": "",
-                        "fp1_time": "",
-                        "fp2_date": "",
-                        "fp2_time": "",
-                        "fp3_date": "",
-                        "fp3_time": "",
-                        "quali_date": "",
-                        "quali_time": "",
-                        "sprint_date": "",
-                        "sprint_time": ""
-                    }
+                "newRace": {
+                    "raceId": 2,
+                    "year": 2009,
+                    "round": 2,
+                    "circuitId": 2,
+                    "name": "Malaysian Grand Prix",
+                    "date": "2009-04-05",
+                    "time": "09:00:00",
+                    "url": "http://en.wikipedia.org/wiki/2009_Malaysian_Grand_Prix",
+                    "fp1_date": "",
+                    "fp1_time": "",
+                    "fp2_date": "",
+                    "fp2_time": "",
+                    "fp3_date": "",
+                    "fp3_time": "",
+                    "quali_date": "",
+                    "quali_time": "",
+                    "sprint_date": "",
+                    "sprint_time": ""
+                }
             }            
             ```
         - **Resposta:** \
@@ -566,10 +570,35 @@ Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de
             `POST /constructor/standings`    
         - **Corpo da mensagem:**
             ```JSON
+            {
+                "newConstructorStanding": {
+                    "constructorStandingsId": 1,
+                    "raceId": 18,
+                    "constructorId": 1,
+                    "points": 14,
+                    "position": 1,
+                    "positionText": "1",			
+                    "wins": 1
+                }           
+            } 
             ```
         - **Resposta:**\
             `201 CREATED`
             ```JSON
+            {
+                "message": "[constructorStandingsId: 3] inserted!",
+                "newConstructorStanding": [
+                    {
+                        "constructorStandingsId": 3,
+                        "raceId": 18,
+                        "constructorId": 3,
+                        "points": 9,
+                        "position": 2,
+                        "positionText": "2",
+                        "wins": 0
+                    }
+                ]
+            }            
             ```
 
     - **Classificação de pilotos:**
@@ -577,10 +606,33 @@ Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de
             `POST /driver/standigs`
         - **Corpo da mensagem:**
             ```JSON
+            {
+                "newDriverStanding": {
+                    "driverStandingsId": 1,
+                    "raceId": 18,
+                    "driverId": 1,
+                    "points": 10,
+                    "position": 1,
+                    "positionText": "1",
+                    "wins": 1
+                }                
+            }
             ```
         - **Resposta:**\
             `201 CREATED`
             ```JSON     
+            {
+                "message": "[driverStandingsId: 3] already created!",
+                "newDriverStanding": {
+                    "driverStandingsId": 3,
+                    "raceId": 18,
+                    "driverId": 3,
+                    "points": 6,
+                    "position": 3,
+                    "positionText": "3",
+                    "wins": 0
+                }
+            }            
             ```
 
     - **Paradas nos boxes:**
@@ -588,10 +640,33 @@ Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de
             `POST /pit/stops`
         - **Corpo da mensagem:**
             ```JSON
+            {
+                "newPitStop": {
+                    "raceId": 841,
+                    "driverId": 30,
+                    "stop": 1,
+                    "lap": 1,
+                    "time": "17:05:52",
+                    "duration": "25.021",
+                    "milliseconds": 25021
+                }                
+            }
             ```
         - **Resposta:**\
             `201 CREATED`
-            ```JSON          
+            ```JSON   
+            {
+                "message": "[raceId: 841] and [driveId: 30] and [lap: 1] already created!",
+                "newPitStop": {
+                    "raceId": 841,
+                    "driverId": 30,
+                    "stop": 1,
+                    "lap": 1,
+                    "time": "17:05:52",
+                    "duration": "25.021",
+                    "milliseconds": 25021
+                }
+            }                   
             ```
 
     - **Pilotos:**
@@ -599,10 +674,39 @@ Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de
             `POST /drivers`
         - **Corpo da mensagem:**
             ```JSON
+            {
+                "newDriver": {
+                    "driverId": 3,
+                    "driverRef": "rosberg",
+                    "number": 6,
+                    "code": "ROS",
+                    "forename": "Nico",
+                    "surname": "Rosberg",
+                    "dob": "1985-06-27",
+                    "nationality": "German",
+                    "url": "http://en.wikipedia.org/wiki/Nico_Rosberg"
+                }                
+            }
             ```
         - **Resposta:**\
             `201 CREATED`
             ```JSON
+            {
+                "message": "[driverId: 3] inserted!",
+                "newDriver": [
+                    {
+                        "driverId": 3,
+                        "driverRef": "rosberg",
+                        "number": 6,
+                        "code": "ROS",
+                        "forename": "Nico",
+                        "surname": "Rosberg",
+                        "dob": "1985-06-27",
+                        "nationality": "German",
+                        "url": "http://en.wikipedia.org/wiki/Nico_Rosberg"
+                    }
+                ]
+            }            
             ```
 
     - **Qualificação:**
@@ -610,10 +714,39 @@ Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de
             `POST /qualifyings`
         - **Corpo da mensagem:**
             ```JSON
+            {
+                "newQualifying": {
+                    "qualifyId": 2025,
+                    "raceId": 216,
+                    "driverId": 63,
+                    "constructorId": 25,
+                    "number": 18,
+                    "position": 19,
+                    "q1": "1:45.372",
+                    "q2": "",
+                    "q3": ""
+                }	
+            }            
             ```
         - **Resposta:**\
             `201 CREATED`
             ```JSON           
+            {
+                "message": "[qualifyId: 2025] inserted!",
+                "newQualifying": [
+                    {
+                        "qualifyId": 2025,
+                        "raceId": 216,
+                        "driverId": 63,
+                        "constructorId": 25,
+                        "number": 18,
+                        "position": 19,
+                        "q1": "1:45.372",
+                        "q2": "",
+                        "q3": ""
+                    }
+                ]
+            }            
             ```
 
     - **Resultados dos construtores:**
@@ -621,10 +754,31 @@ Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de
             `POST /constructor/results`   
         - **Corpo da mensagem:**
             ```JSON
+            {
+                "newConstructorResult": {
+                    "constructorResultsId": 1,
+                    "raceId": 18,
+                    "constructorId": 1,
+                    "points": 14,
+                    "status": ""
+                }     
+            }       
             ```
         - **Resposta:**\
             `201 CREATED`
             ```JSON 
+            {
+                "message": "[constructorResultsId: 3] inserted!",
+                "newConstructorResult": [
+                    {
+                        "constructorResultsId": 3,
+                        "raceId": 18,
+                        "constructorId": 3,
+                        "points": 9,
+                        "status": ""
+                    }
+                ]
+            }            
             ```
 
     - **Resultado das corridas:**
@@ -632,10 +786,57 @@ Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de
             `POST /results`
         - **Corpo da mensagem:**
             ```JSON
+            {
+                "newResult": {
+                    "resultId": 1,
+                    "raceId": 18,
+                    "driverId": 1,
+                    "constructorId": 1,
+                    "number": 22,
+                    "grid": 1,
+                    "position": 1,
+                    "positionText": "1",
+                    "positionOrder": 1,
+                    "points": 10,
+                    "laps": 58,
+                    "time": "1:34:50.616",
+                    "milliseconds": 5690616,
+                    "fastestLap": 39,
+                    "rank": 2,
+                    "fastestLapTime": "1:27.452",
+                    "fastestLapSpeed": "218.300",
+                    "statusId": 2
+                }       
+            }     
             ```
         - **Resposta:**\
             `201 CREATED`
             ```JSON      
+            {
+                "message": "[resultId: 1] inserted!",
+                "newResult": [
+                    {
+                        "resultId": 1,
+                        "raceId": 18,
+                        "driverId": 1,
+                        "constructorId": 1,
+                        "number": 22,
+                        "grid": 1,
+                        "position": 1,
+                        "positionText": "1",
+                        "positionOrder": 1,
+                        "points": 10,
+                        "laps": 58,
+                        "time": "1:34:50.616",
+                        "milliseconds": 5690616,
+                        "fastestLap": 39,
+                        "rank": 2,
+                        "fastestLapTime": "1:27.452",
+                        "fastestLapSpeed": "218.300",
+                        "statusId": 2
+                    }
+                ]
+            }            
             ```
 
     - **Resultado das corridas sprint:**
@@ -643,10 +844,53 @@ Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de
             `POST /sprint/results`
         - **Corpo da mensagem:**
             ```JSON
+            {      
+                "newSprintResult":	{
+                    "resultId": 2,
+                    "raceId": 1061,
+                    "driverId": 1,
+                    "constructorId": 131,
+                    "number": 44,
+                    "grid": 1,
+                    "position": 2,
+                    "positionText": "2",
+                    "positionOrder": 2,
+                    "points": 2,
+                    "laps": 17,
+                    "time": "+1.430",
+                    "milliseconds": 1539856,
+                    "fastestLap": 17,
+                    "fastestLapTime": "1:29.937",
+                    "statusId": 1
+                }         
+            }         
             ```
         - **Resposta:**\
             `201 CREATED`
-            ```JSON          
+            ```JSON  
+            {
+                "message": "[resultId: 2] inserted!",
+                "newSprintResult": [
+                    {
+                        "resultId": 2,
+                        "raceId": 1061,
+                        "driverId": 1,
+                        "constructorId": 131,
+                        "number": 44,
+                        "grid": 1,
+                        "position": 2,
+                        "positionText": "2",
+                        "positionOrder": 2,
+                        "points": 2,
+                        "laps": 17,
+                        "time": "+1.430",
+                        "milliseconds": 1539856,
+                        "fastestLap": 17,
+                        "fastestLapTime": "1:29.937",
+                        "statusId": 1
+                    }
+                ]
+            }                    
             ```
 
     - **Status:**
@@ -654,10 +898,25 @@ Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de
             `POST /status`
         - **Corpo da mensagem:**
             ```JSON
+            {
+                "newStatus": {
+                    "statusId": 2,
+                    "status": "Disqualified"
+                }
+            }            
             ```
         - **Resposta:**\
             `201 CREATED`
             ```JSON     
+            {
+                "message": "[statusId: 2] inserted!",
+                "newStatus": [
+                    {
+                        "statusId": 2,
+                        "status": "Disqualified"
+                    }
+                ]
+            }            
             ```
 
     - **Temporadas:**
@@ -665,10 +924,25 @@ Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de
             `POST /seasons`
         - **Corpo da mensagem:**
             ```JSON
+            {
+                "newSeason": {
+                    "year": 2008,
+                    "url": "http://en.wikipedia.org/wiki/2008_Formula_One_season"
+                }
+            }                      
             ```
         - **Resposta:**\
             `201 CREATED`
-            ```JSON          
+            ```JSON     
+            {
+                "message": "[year: 2008] inserted!",
+                "newSeason": [
+                    {
+                        "year": 2008,
+                        "url": "http://en.wikipedia.org/wiki/2008_Formula_One_season"
+                    }
+                ]
+            }                   
             ```
 
     - **Tempo da volta:**
@@ -676,11 +950,39 @@ Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de
             `POST /lap/times`   
         - **Corpo da mensagem:**
             ```JSON
+            {
+                "newLapTime": {
+                    "raceId": 841,
+                    "driverId": 30,
+                    "lap": 1,
+                    "position": 22,
+                    "time": "2:41.428",
+                    "milliseconds": 161428
+                }     
+            }       
             ```
         - **Resposta:**\
             `201 CREATED`
-            ```JSON         
+            ```JSON     
+            {
+                "message": "[raceId: 841] and [driveId: 30] and [lap: 1] inserted!",
+                "newLapTime": [
+                    {
+                        "raceId": 841,
+                        "driverId": 30,
+                        "lap": 1,
+                        "position": 22,
+                        "time": "2:41.428",
+                        "milliseconds": 161428
+                    }
+                ]
+            }                
             ```
+
+
+
+
+### Requisição PUT (Upsert)
 
 ### Fonte dos dados desta API
 
