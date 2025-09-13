@@ -4973,17 +4973,6 @@
       "url": "http://en.wikipedia.org/wiki/Talk:1963_Mexican_Grand_Prix#Who_was_Thomas_Monarch.3F"
     },
     {
-      "driverId": 842,
-      "driverRef": "gasly",
-      "number": 10,
-      "code": "GAS",
-      "forename": "Pierre",
-      "surname": "Gasly",
-      "dob": "1996-02-07",
-      "nationality": "French",
-      "url": "http://en.wikipedia.org/wiki/Pierre_Gasly"
-    },
-    {
       "driverId": 453,
       "driverRef": "lewis",
       "number": -1,
@@ -9250,6 +9239,17 @@
       "dob": "1993-12-14",
       "nationality": "Italian",
       "url": "http://en.wikipedia.org/wiki/Antonio_Giovinazzi"
+    },
+    {
+      "driverId": 842,
+      "driverRef": "gasly",
+      "number": 10,
+      "code": "GAS",
+      "forename": "Pierre",
+      "surname": "Gasly",
+      "dob": "1996-02-07",
+      "nationality": "French",
+      "url": "http://en.wikipedia.org/wiki/Pierre_Gasly"
     },
     {
       "driverId": 843,

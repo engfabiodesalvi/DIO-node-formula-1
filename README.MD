@@ -984,6 +984,10 @@ Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de
 
 ### Requisição PUT (Upsert)
 
+A requisição **PUT** insere um item que tenha um **Id** não cadastrado na base de dados desejada ou edita um item que tenha o mesmo **Id** cadastrado na base de dados desejada.\
+Este item só será inserido ou editado na base de dados após uma verificação do tipo de dado de cada campo e se todos os campos deste item foram enviados.\
+Se não houver problemas o item é inserido na base de dados e o código **201 CREATED** é retornado junto com um objeto com a mensagem **{item} inserted!** os dados do item inserido.
+
 ### Fonte dos dados desta API
 
 CSV Formula 1 dataset 1950 - 2024 (Deprecated)

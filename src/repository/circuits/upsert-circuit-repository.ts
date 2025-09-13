@@ -84,10 +84,19 @@ export const repositoryUpsertCircuit = async (
                                         "message": `[circuitId: ${upsertCircuit.circuitId}] wasn't inserted!`,
                                         "upsertCircuit": upsertCircuit};
                                 } else {
-                                    response.type("application/json").code(200); // Ok
-                                    return {
-                                        "message": `[circuitId: ${upsertCircuit.circuitId}] edited/inserted!`,
-                                        "upsertCircuit": upsertCircuit};                        
+                                    // itemMatch = true => Edited
+                                    // itemMatch = false => Added
+                                    if (itemMatch) {
+                                        response.type("application/json").code(200); // Ok
+                                        return {
+                                            "message": `[circuitId: ${upsertCircuit.circuitId}] edited!`,
+                                            "upsertCircuit": upsertCircuit};   
+                                    } else {
+                                        response.type("application/json").code(201); // Create
+                                        return {
+                                            "message": `[circuitId: ${upsertCircuit.circuitId}] inserted!`,
+                                            "upsertCircuit": upsertCircuit};   
+                                    }
                                 }                            
                         
                         } else {
