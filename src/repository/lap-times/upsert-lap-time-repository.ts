@@ -86,10 +86,19 @@ export const repositoryUpsertLapTime = async (
                                         "message": `[raceId: ${upsertLapTime.raceId}] and [raceId: ${upsertLapTime.raceId}] and [lap: ${upsertLapTime.lap}] wasn't inserted!`,
                                         "upsertLapTime": upsertLapTime};
                                 } else {
-                                    response.type("application/json").code(200); // Ok
-                                    return {
-                                        "message": `[raceId: ${upsertLapTime.raceId}] and [raceId: ${upsertLapTime.raceId}] and [lap: ${upsertLapTime.lap}] edited/inserted!`,
-                                        "upsertLapTime": upsertLapTime};                        
+                                    // itemMatch = true => Edited
+                                    // itemMatch = false => Added
+                                    if (itemMatch) {                      
+                                        response.type("application/json").code(200); // Ok
+                                        return {
+                                            "message": `[raceId: ${upsertLapTime.raceId}] and [raceId: ${upsertLapTime.raceId}] and [lap: ${upsertLapTime.lap}] edited!`,
+                                            "upsertLapTime": upsertLapTime};      
+                                    } else {
+                                        response.type("application/json").code(201); // Create
+                                        return {
+                                            "message": `[raceId: ${upsertLapTime.raceId}] and [raceId: ${upsertLapTime.raceId}] and [lap: ${upsertLapTime.lap}] inserted!`,
+                                            "upsertLapTime": upsertLapTime};                                         
+                                    }              
                                 }                            
                         
                         } else {

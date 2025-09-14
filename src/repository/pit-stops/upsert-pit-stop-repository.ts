@@ -83,19 +83,28 @@ export const repositoryUpsertPitStop = async (
                                     console.log("Pit Stop wasn't inserted!");
                                     response.type("application/json").code(500); // internal server error  
                                     return {
-                                        "message": `[raceId: ${upsertPitStop.raceId}] and [raceId: ${upsertPitStop.raceId}] and [lap: ${upsertPitStop.lap}] wasn't inserted!`,
+                                        "message": `[raceId: ${upsertPitStop.raceId}] and [driveId: ${upsertPitStop.driverId}] and [lap: ${upsertPitStop.lap}] wasn't inserted!`,
                                         "upsertPitStop": upsertPitStop};
                                 } else {
-                                    response.type("application/json").code(200); // Ok
-                                    return {
-                                        "message": `[raceId: ${upsertPitStop.raceId}] and [raceId: ${upsertPitStop.raceId}] and [lap: ${upsertPitStop.lap}] edited/inserted!`,
-                                        "upsertPitStop": upsertPitStop};                        
+                                    // itemMatch = true => Edited
+                                    // itemMatch = false => Added
+                                    if (itemMatch) {                                    
+                                        response.type("application/json").code(200); // Ok
+                                        return {
+                                            "message": `[raceId: ${upsertPitStop.raceId}] and [driveId: ${upsertPitStop.driverId}] and [lap: ${upsertPitStop.lap}] edited!`,
+                                            "upsertPitStop": upsertPitStop};
+                                    } else {
+                                        response.type("application/json").code(201); // Create
+                                        return {
+                                            "message": `[raceId: ${upsertPitStop.raceId}] and [driveId: ${upsertPitStop.driverId}] and [lap: ${upsertPitStop.lap}] inserted!`,
+                                            "upsertPitStop": upsertPitStop};                                        
+                                    }                 
                                 }                            
                         
                         } else {
                             response.type("application/json").code(400); // bad request
                             return {
-                                "message": `[raceId: ${upsertPitStop.raceId}] and [raceId: ${upsertPitStop.raceId}] and [lap: ${upsertPitStop.lap}] must be a non-zer positive number!`,
+                                "message": `[raceId: ${upsertPitStop.raceId}] and [driveId: ${upsertPitStop.driverId}] and [lap: ${upsertPitStop.lap}] must be a non-zer positive number!`,
                                 "upsertPitStop": upsertPitStop};                
                         }
 

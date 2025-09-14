@@ -96,10 +96,19 @@ export const repositoryUpsertResult = async (
                                         "message": `[resultId: ${upsertResult.resultId}] wasn't inserted!`,
                                         "upsertResult": upsertResult};
                                 } else {
-                                    response.type("application/json").code(200); // Ok
-                                    return {
-                                        "message": `[resultId: ${upsertResult.resultId}] edited/inserted!`,
-                                        "upsertResult": upsertResult};                        
+                                    // itemMatch = true => Edited
+                                    // itemMatch = false => Added
+                                    if (itemMatch) {
+                                        response.type("application/json").code(200); // Ok
+                                        return {
+                                            "message": `[resultId: ${upsertResult.resultId}] edited!`,
+                                            "upsertResult": upsertResult};                                           
+                                    } else {
+                                        response.type("application/json").code(201); // Create
+                                        return {
+                                            "message": `[resultId: ${upsertResult.resultId}] inserted!`,
+                                            "upsertResult": upsertResult};                                             
+                                    }                                                        
                                 }                            
                         
                         } else {

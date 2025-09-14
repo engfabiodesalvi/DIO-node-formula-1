@@ -97,10 +97,19 @@ export const repositoryUpsertRace = async (
                                         "message": `[raceId: ${upsertRace.raceId}] wasn't inserted!`,
                                         "upsertRace": upsertRace};
                                 } else {
-                                    response.type("application/json").code(200); // Ok
-                                    return {
-                                        "message": `[raceId: ${upsertRace.raceId}] edited/inserted!`,
-                                        "upsertRace": upsertRace};                        
+                                    // itemMatch = true => Edited
+                                    // itemMatch = false => Added
+                                    if (itemMatch) {                                    
+                                        response.type("application/json").code(200); // Ok
+                                        return {
+                                            "message": `[raceId: ${upsertRace.raceId}] edited!`,
+                                            "upsertRace": upsertRace};                        
+                                    } else {
+                                        response.type("application/json").code(201); // Ok
+                                        return {
+                                            "message": `[raceId: ${upsertRace.raceId}] inserted!`,
+                                            "upsertRace": upsertRace};                                           
+                                    }
                                 }                            
                         
                         } else {

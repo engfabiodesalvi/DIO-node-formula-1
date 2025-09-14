@@ -78,10 +78,19 @@ export const repositoryUpsertStatus = async (
                                         "message": `[statusId: ${upsertStatus.statusId}] wasn't inserted!`,
                                         "upsertStatus": upsertStatus};
                                 } else {
-                                    response.type("application/json").code(200); // Ok
-                                    return {
-                                        "message": `[statusId: ${upsertStatus.statusId}] edited/inserted!`,
-                                        "upsertStatus": upsertStatus};                        
+                                    // itemMatch = true => Edited
+                                    // itemMatch = false => Added
+                                    if (itemMatch) {          
+                                        response.type("application/json").code(200); // Ok
+                                        return {
+                                            "message": `[statusId: ${upsertStatus.statusId}] edited!`,
+                                            "upsertStatus": upsertStatus};                                       
+                                    } else {              
+                                        response.type("application/json").code(201); // Create
+                                        return {
+                                            "message": `[statusId: ${upsertStatus.statusId}] inserted!`,
+                                            "upsertStatus": upsertStatus};                                                     
+                                    }                
                                 }                            
                         
                         } else {

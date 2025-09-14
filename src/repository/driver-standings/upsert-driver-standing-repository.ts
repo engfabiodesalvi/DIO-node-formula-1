@@ -83,10 +83,19 @@ export const repositoryUpsertDriverStanding = async (
                                         "message": `[driverStandingsId: ${upsertDriverStanding.driverStandingsId}] wasn't inserted!`,
                                         "upsertDriverStanding": upsertDriverStanding};
                                 } else {
-                                    response.type("application/json").code(200); // Ok
-                                    return {
-                                        "message": `[driverStandingsId: ${upsertDriverStanding.driverStandingsId}] edited/inserted!`,
-                                        "upsertDriverStanding": upsertDriverStanding};                        
+                                    // itemMatch = true => Edited
+                                    // itemMatch = false => Added
+                                    if (itemMatch) {                                    
+                                        response.type("application/json").code(200); // Ok
+                                        return {
+                                            "message": `[driverStandingsId: ${upsertDriverStanding.driverStandingsId}] edited!`,
+                                            "upsertDriverStanding": upsertDriverStanding};        
+                                    } else {
+                                        response.type("application/json").code(201); // Create
+                                        return {
+                                            "message": `[driverStandingsId: ${upsertDriverStanding.driverStandingsId}] inserted!`,
+                                            "upsertDriverStanding": upsertDriverStanding};                                          
+                                    }               
                                 }                            
                         
                         } else {

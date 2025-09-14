@@ -88,10 +88,19 @@ export const repositoryUpsertQualifying = async (
                                         "message": `[qualifyId: ${upsertQualifying.qualifyId}] wasn't inserted!`,
                                         "upsertQualifying": upsertQualifying};
                                 } else {
-                                    response.type("application/json").code(200); // Ok
-                                    return {
-                                        "message": `[qualifyId: ${upsertQualifying.qualifyId}] edited/inserted!`,
-                                        "upsertQualifying": upsertQualifying};                        
+                                    // itemMatch = true => Edited
+                                    // itemMatch = false => Added
+                                    if (itemMatch) {                                    
+                                        response.type("application/json").code(200); // Ok
+                                        return {
+                                            "message": `[qualifyId: ${upsertQualifying.qualifyId}] edited!`,
+                                            "upsertQualifying": upsertQualifying};         
+                                    } else {
+                                        response.type("application/json").code(201); // Create
+                                        return {
+                                            "message": `[qualifyId: ${upsertQualifying.qualifyId}] inserted!`,
+                                            "upsertQualifying": upsertQualifying};                                            
+                                    }      
                                 }                            
                         
                         } else {

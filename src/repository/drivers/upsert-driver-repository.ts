@@ -85,10 +85,19 @@ export const repositoryUpsertDriver = async (
                                         "message": `[driverId: ${upsertDriver.driverId}] wasn't inserted!`,
                                         "upsertDriver": upsertDriver};
                                 } else {
-                                    response.type("application/json").code(200); // Ok
-                                    return {
-                                        "message": `[driverId: ${upsertDriver.driverId}] edited/inserted!`,
-                                        "upsertDriver": upsertDriver};                        
+                                    // itemMatch = true => Edited
+                                    // itemMatch = false => Added
+                                    if (itemMatch) {                                    
+                                        response.type("application/json").code(200); // Ok
+                                        return {
+                                            "message": `[driverId: ${upsertDriver.driverId}] edited!`,
+                                            "upsertDriver": upsertDriver};  
+                                    } else {
+                                        response.type("application/json").code(201); // Create
+                                        return {
+                                            "message": `[driverId: ${upsertDriver.driverId}] inserted!`,
+                                            "upsertDriver": upsertDriver};                                          
+                                    }                      
                                 }                            
                         
                         } else {

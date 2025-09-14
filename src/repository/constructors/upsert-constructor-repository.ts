@@ -80,10 +80,19 @@ export const repositoryUpsertConstructor = async (
                                         "message": `[constructorId: ${upsertConstructor.constructorId}] wasn't inserted!`,
                                         "upsertConstructor": upsertConstructor};
                                 } else {
-                                    response.type("application/json").code(200); // Ok
-                                    return {
-                                        "message": `[constructorId: ${upsertConstructor.constructorId}] edited/inserted!`,
-                                        "upsertConstructor": upsertConstructor};                        
+                                    // itemMatch = true => Edited
+                                    // itemMatch = false => Added
+                                    if (itemMatch) {                                    
+                                        response.type("application/json").code(200); // Ok
+                                        return {
+                                            "message": `[constructorId: ${upsertConstructor.constructorId}] edited!`,
+                                            "upsertConstructor": upsertConstructor};         
+                                    } else {
+                                        response.type("application/json").code(201); // Create
+                                        return {
+                                            "message": `[constructorId: ${upsertConstructor.constructorId}] inserted!`,
+                                            "upsertConstructor": upsertConstructor};                                            
+                                    }               
                                 }                            
                         
                         } else {

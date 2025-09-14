@@ -78,10 +78,20 @@ export const repositoryUpsertSeason = async (
                                         "message": `[year: ${upsertSeason.year}] wasn't inserted!`,
                                         "upsertSeason": upsertSeason};
                                 } else {
-                                    response.type("application/json").code(200); // Ok
-                                    return {
-                                        "message": `[year: ${upsertSeason.year}] edited/inserted!`,
-                                        "upsertSeason": upsertSeason};                        
+                                    // itemMatch = true => Edited
+                                    // itemMatch = false => Added
+                                    if (itemMatch) {
+                                        response.type("application/json").code(200); // Ok
+                                        return {
+                                            "message": `[year: ${upsertSeason.year}] edited!`,
+                                            "upsertSeason": upsertSeason};                                                
+                                    } else {
+                                        response.type("application/json").code(201); // Create
+                                        return {
+                                            "message": `[year: ${upsertSeason.year}] inserted!`,
+                                            "upsertSeason": upsertSeason};                                          
+                                    }                                    
+                   
                                 }                            
                         
                         } else {

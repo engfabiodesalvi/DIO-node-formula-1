@@ -83,10 +83,19 @@ export const repositoryUpsertConstructorStanding = async (
                                         "message": `[constructorStandingsId: ${upsertConstructorStanding.constructorStandingsId}] wasn't inserted!`,
                                         "upsertConstructorStanding": upsertConstructorStanding};
                                 } else {
-                                    response.type("application/json").code(200); // Ok
-                                    return {
-                                        "message": `[constructorStandingsId: ${upsertConstructorStanding.constructorStandingsId}] edited/inserted!`,
-                                        "upsertConstructorStanding": upsertConstructorStanding};                        
+                                    // itemMatch = true => Edited
+                                    // itemMatch = false => Added
+                                    if (itemMatch) {                                    
+                                        response.type("application/json").code(200); // Ok
+                                        return {
+                                            "message": `[constructorStandingsId: ${upsertConstructorStanding.constructorStandingsId}] edited!`,
+                                            "upsertConstructorStanding": upsertConstructorStanding};     
+                                    } else {
+                                        response.type("application/json").code(201); // Ok
+                                        return {
+                                            "message": `[constructorStandingsId: ${upsertConstructorStanding.constructorStandingsId}] inserted!`,
+                                            "upsertConstructorStanding": upsertConstructorStanding};                                          
+                                    }                   
                                 }                            
                         
                         } else {
