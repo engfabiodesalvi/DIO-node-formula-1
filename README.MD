@@ -407,7 +407,7 @@ A requisição **POST** insere um item na base de dados desejada.\
 O item enviado deve possuir todos os campos preenchidos com o seu devido tipo de dado.\
 Este item só será inserido na base de dados após uma verificação do tipo de dado de cada campo e se todos os campos deste item foram enviados.\
 Se não houver problemas o item é inserido na base de dados e o código **201 CREATED** é retornado junto com um objeto com a mensagem **{item} inserted!** os dados do item inserido.
-Abaixo um exemplo para uma tentativa bem sucessida de inserir um item na base de dados status:
+Abaixo temos um exemplo para uma tentativa bem sucedida de inserir um item na base de dados *status*:
 ```JSON
 {
 	"message": "[statusId: 2] inserted!",
@@ -421,7 +421,7 @@ Abaixo um exemplo para uma tentativa bem sucessida de inserir um item na base de
 ```
 Caso o id do item enviado seja igual ao id de algum item do banco de dados é retornado o código **409 CONFLICT** com um ojeto contendo uma mensagem **{item} already created!** e os dodos item já inserido.\
 Algumas bases de dados possuem mais de um id para identificar os item na base de dados.
-Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de dados status:
+Abaixo temos um exemplo para uma tentativa de inserir um item já existente na base de dados *status*:
 ```JSON
 {
 	"message": "[statusId: 2] already created!",
@@ -986,7 +986,58 @@ Abaixo um exemplo para uma tentativa de inserir um item já exixtente na base de
 
 A requisição **PUT** insere um item que tenha um **Id** não cadastrado na base de dados desejada ou edita um item que tenha o mesmo **Id** cadastrado na base de dados desejada.\
 Este item só será inserido ou editado na base de dados após uma verificação do tipo de dado de cada campo e se todos os campos deste item foram enviados.\
-Se não houver problemas o item é inserido na base de dados e o código **201 CREATED** é retornado junto com um objeto formado com a mensagem **{itemId} inserted!** e com os dados do item inserido.
+Se o **Id** do item não estiver cadastrado na base de dados, e não houver problemas com os campos do item, este item será inserido na base de dados e o código **201 CREATED** será retornado junto com um objeto formado com a mensagem **{itemId} inserted!** e com os dados do item inserido.
+Abaixo temos um exemplo para uma tentativa bem sucedida de inserir ou editar um item na base de dados onde o **Id** do item não esta cadastrado na base de dados *circuits*:
+```JSON
+{
+	"message": "[circuitId: 1] inserted!",
+	"upsertCircuit": {
+		"circuitId": 1,
+		"circuitRef": "albert_park",
+		"name": "Albert Park Grand Prix Circuit",
+		"location": "Melbourne",
+		"country": "Australia",
+		"lat": -37.8497,
+		"lng": 144.968,
+		"alt": 10,
+		"url": "http://en.wikipedia.org/wiki/Melbourne_Grand_Prix_Circuit"
+	}
+}
+```
+Caso o **Id** do item esteja cadastrado na base de dados, e não houver problemas com os campos do item, este item será editado na base de dados e o c´digo **200 OK** será retornado junto com um objeto formado com a mensagem **{itemId} edited!** e com os dados do item editado.
+Abaixo temos um exemplo para uma tentativa bem sucedida de inserir ou editar um item na base de dados onde o **Id** do item já está cadastrado na base de dados *circuits*:
+```JSON
+{
+	"message": "[circuitId: 1] edited!",
+	"upsertCircuit": {
+		"circuitId": 1,
+		"circuitRef": "albert_park",
+		"name": "Albert Park Grand Prix Circuit",
+		"location": "Melbourne",
+		"country": "Australia",
+		"lat": -37.8497,
+		"lng": 144.968,
+		"alt": 10,
+		"url": "http://en.wikipedia.org/wiki/Melbourne_Grand_Prix_Circuit"
+	}
+}
+```
+
+###
+- **Base de dados**
+
+    - **Circuitos:**
+        - **Endpoint:**\
+            `PUT /circuit`
+        - **Copo da mensagem:**
+            ```JSON
+           
+            ```
+        - **Resposta:**\
+            `201 CREATED`
+            ```JSON
+
+            ```
 
 ### Fonte dos dados desta API
 
