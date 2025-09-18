@@ -1,34 +1,3 @@
-<STYLE>
-.endpoint {
-    color: rgba(95, 0, 0, 1);
-    background-color: rgba(246, 232, 208, 1);
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
-    margin: 0em;
-    line-height: 2;
-    border-radius: 0.5em; 
-    font-weight: 500;
-    font-family: "Lucida Console";
-    font-size: 1rem;
-}    
-.create,.ok {
-    color: rgba(2, 89, 5, 1);
-    background-color: rgba(209, 250, 217, 1);
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
-    margin: 0em;
-    line-height: 2;
-    border-radius: 0.5em; 
-    font-weight: 500;
-    font-size: 1rem;
-}
-
-
-</STYLE>
 
 # API Fórmula 1
 
@@ -1018,7 +987,7 @@ Abaixo temos um exemplo para uma tentativa de inserir um item já existente na b
 
 A requisição **PUT** insere um item que tenha um **Id** não cadastrado na base de dados desejada ou edita um item que tenha o mesmo **Id** cadastrado na base de dados desejada.\
 Este item só será inserido ou editado na base de dados após uma verificação do tipo de dado de cada campo e se todos os campos deste item foram enviados.\
-Se o **Id** do item não estiver cadastrado na base de dados, e não houver problemas com os campos do item, este item será inserido na base de dados e o código <span class="create">201 CREATED</span> será retornado junto com um objeto formado com a mensagem **{itemId} inserted!** e com os dados do item inserido.
+Se o **Id** do item não estiver cadastrado na base de dados, e não houver problemas com os campos do item, este item será inserido na base de dados e o código `201 CREATED` será retornado junto com um objeto formado com a mensagem **{itemId} inserted!** e com os dados do item inserido.
 Abaixo temos um exemplo para uma tentativa bem sucedida de inserir ou editar um item na base de dados onde o **Id** do item não esta cadastrado na base de dados *circuits*:
 ```JSON
 {
@@ -1036,7 +1005,7 @@ Abaixo temos um exemplo para uma tentativa bem sucedida de inserir ou editar um 
 	}
 }
 ```
-Caso o **Id** do item esteja cadastrado na base de dados, e não houver problemas com os campos do item, este item será editado na base de dados e o código <span class="ok">200 OK</span> será retornado junto com um objeto formado com a mensagem **{itemId} edited!** e com os dados do item editado.
+Caso o **Id** do item esteja cadastrado na base de dados, e não houver problemas com os campos do item, este item será editado na base de dados e o código `200 OK` será retornado junto com um objeto formado com a mensagem **{itemId} edited!** e com os dados do item editado.
 Abaixo temos um exemplo para uma tentativa bem sucedida de inserir ou editar um item na base de dados onde o **Id** do item já está cadastrado na base de dados *circuits*:
 ```JSON
 {
@@ -1060,8 +1029,7 @@ Abaixo temos um exemplo para uma tentativa bem sucedida de inserir ou editar um 
 
     - **Circuitos:**
         - **Endpoint:**\
-            <span class="endpoint">PUT</span>&nbsp;
-            <span class="endpoint"> /circuit</span>
+            `PUT /circuit`
         - **Copo da mensagem:**
             ```JSON
             {
@@ -1080,17 +1048,12 @@ Abaixo temos um exemplo para uma tentativa bem sucedida de inserir ou editar um 
             }
             ```
         - **Resposta:**        
-            <table>
-            <tbody>
-            <tr>
-            <td>
-            <span class="create"> 201 CREATED</span> 
-            para um novo **Id**.
+            `201 CREATED` para um novo **Id**.
             ```JSON
             "message": "[circuitId: 1] inserted!"
             ```
             **Ou:**\
-            <span class="ok"> 200 OK</span> para um **Id** existente.
+            `200 OK` para um **Id** existente.
             ```JSON
             "message": "[circuitId: 1] edited!"            
             ```     
@@ -1107,271 +1070,250 @@ Abaixo temos um exemplo para uma tentativa bem sucedida de inserir ou editar um 
                 "alt": 10,
                 "url": "http://en.wikipedia.org/wiki/Melbourne_Grand_Prix_Circuit"
             }         
-            ```    
-            </td>
-            <td>
-            
-            </td>
-            </tr>
-            </tbody>
-            </table>          
+            ```            
 
 
     - **Construtores:**
         - **Endpoint:**\
-            <span class="endpoint">PUT</span>&nbsp;
-            <span class="endpoint"> /constructor</span>
+            `PUT /constructor`
         - **Corpo da mensagem:**
             ```JSON
 
             ```
         - **Resposta:**\
-            <span class="create"> 201 CREATED</span> 
-            para um novo **Id**.
+            `201 CREATED` para um novo **Id**.
             ```JSON
 
             ```
              **Ou:**\
-            <span class="ok"> 200 OK</span> para um **Id** existente.
+            `200 OK` para um **Id** existente.
             ```JSON
             
             ``` 
 
     - **Corridas:**
         - **Endpoint:**\
-            <span class="endpoint">PUT</span>&nbsp;
-            <span class="endpoint"> /race</span>
+            `PUT /race`
         - **Corpo da mensagem:**
             ```JSON
 
             ```
         - **Resposta:** \
-            <span class="create"> 201 CREATED</span> 
+            ` 201 CREATED` 
             para um novo **Id**.
             ```JSON
 
             ```
              **Ou:**\
-            <span class="ok"> 200 OK</span> para um **Id** existente.
+            `200 OK` para um **Id** existente.
             ```JSON
             
             ```
 
     - **Classificação de construtores:**
         - **Endpoint:**\
-            <span class="endpoint">PUT</span>&nbsp;
-            <span class="endpoint">/constructor/standings</span>   
+            `PUT/constructor/standings`   
         - **Corpo da mensagem:**
             ```JSON
 
             ```
         - **Resposta:**\
-            <span class="create"> 201 CREATED</span> para um novo **Id**.
+            `201 CREATED` para um novo **Id**.
             ```JSON
 
             ```
              **Ou:**\
-            <span class="ok"> 200 OK</span> para um **Id** existente.
+            `200 OK` para um **Id** existente.
             ```JSON
             
             ```
 
     - **Classificação de pilotos:**
         - **Endpoint:**\
-            <span class="endpoint">PUT</span>&nbsp;
-            <span class="endpoint"> /driver/standigs</span>
+            `PUT /driver/standigs`
         - **Corpo da mensagem:**
             ```JSON
 
             ```
         - **Resposta:**\
-            <span class="create"> 201 CREATED</span> 
+            `201 CREATED` 
             para um novo **Id**.
             ```JSON     
 
             ```
              **Ou:**\
-            <span class="ok"> 200 OK</span> para um **Id** existente.
+            `200 OK` para um **Id** existente.
             ```JSON
             
             ```            
 
     - **Paradas nos boxes:**
         - **Endpoint:**\
-            <span class="endpoint">PUT</span>&nbsp;
-            <span class="endpoint"> /pit/stops</span>
+            `PUT /pit/stops`
         - **Corpo da mensagem:**
             ```JSON
 
             ```
         - **Resposta:**\
-            <span class="create"> 201 CREATED</span> 
+            `201 CREATED` 
             para um novo **Id**.
             ```JSON   
                 
             ```
              **Ou:**\
-            <span class="ok"> 200 OK</span> para um **Id** existente.
+            `200 OK` para um **Id** existente.
             ```JSON
             
             ```            
 
     - **Pilotos:**
         - **Endpoint:**\
-            <span class="endpoint">PUT</span>&nbsp;
-            <span class="endpoint"> /drivers</span>
+            `PUT /drivers`
         - **Corpo da mensagem:**
             ```JSON
 
             ```
         - **Resposta:**\
-            <span class="create"> 201 CREATED</span> 
+            `201 CREATED` 
             para um novo **Id**.
             ```JSON
           
             ```
              **Ou:**\
-            <span class="ok"> 200 OK</span> para um **Id** existente.
+            `200 OK` para um **Id** existente.
             ```JSON
             
             ```            
 
     - **Qualificação:**
         - **Endpoint:**\
-            <span class="endpoint">PUT</span>&nbsp;
-            <span class="endpoint"> /qualifyings</span>
+            `PUT /qualifyings`
         - **Corpo da mensagem:**
             ```JSON
            
             ```
         - **Resposta:**\
-            <span class="create"> 201 CREATED</span> 
+            `201 CREATED` 
             para um novo **Id**.
             ```JSON           
           
             ```
              **Ou:**\
-            <span class="ok"> 200 OK</span> para um **Id** existente.
+            `200 OK` para um **Id** existente.
             ```JSON
             
             ```            
 
     - **Resultados dos construtores:**
         - **Endpoint:**\
-            <span class="endpoint">PUT</span>&nbsp;
-            <span class="endpoint"> /constructor/results</span>
+            `PUT /constructor/results`
         - **Corpo da mensagem:**
             ```JSON
 
             ```
         - **Resposta:**\
-            <span class="create"> 201 CREATED</span> 
+            `201 CREATED` 
             para um novo **Id**.
             ```JSON 
           
             ```
              **Ou:**\
-            <span class="ok"> 200 OK</span> para um **Id** existente.
+            `200 OK` para um **Id** existente.
             ```JSON
             
             ```            
 
     - **Resultado das corridas:**
         - **Endpoint:**\
-            <span class="endpoint">PUT</span>&nbsp;
-            <span class="endpoint"> /results</span>
+            `PUT /results`
         - **Corpo da mensagem:**
             ```JSON
 
             ```
         - **Resposta:**\
-            <span class="create"> 201 CREATED</span> 
+            `201 CREATED` 
             para um novo **Id**.
             ```JSON      
 
             ```
              **Ou:**\
-            <span class="ok"> 200 OK</span> para um **Id** existente.
+            `200 OK` para um **Id** existente.
             ```JSON
             
             ```            
 
     - **Resultado das corridas sprint:**
         - **Endpoint:**\
-            <span class="endpoint">PUT</span>&nbsp;
-            <span class="endpoint"> /sprint/results</span>
+            `PUT /sprint/results`
         - **Corpo da mensagem:**
             ```JSON
 
             ```
         - **Resposta:**\
-            <span class="create"> 201 CREATED</span> 
+            `201 CREATED` 
             para um novo **Id**.
             ```JSON  
                   
             ```
              **Ou:**\
-            <span class="ok"> 200 OK</span> para um **Id** existente.
+            `200 OK` para um **Id** existente.
             ```JSON
             
             ```            
 
     - **Status:**
         - **Endpoint:**\
-            <span class="endpoint">PUT</span>&nbsp;
-            <span class="endpoint"> /status</span>
+            `PUT /status`
         - **Corpo da mensagem:**
             ```JSON
 
             ```
         - **Resposta:**\
-            <span class="create"> 201 CREATED</span> 
+            `201 CREATED` 
             para um novo **Id**.
             ```JSON     
 
             ```
              **Ou:**\
-            <span class="ok"> 200 OK</span> para um **Id** existente.
+            `200 OK` para um **Id** existente.
             ```JSON
             
             ```            
 
     - **Temporadas:**
         - **Endpoint:**\
-            <span class="endpoint">PUT</span>&nbsp;
-            <span class="endpoint"> /seasons</span>
+            `PUT /seasons`
         - **Corpo da mensagem:**
             ```JSON
 
             ```
         - **Resposta:**\
-            <span class="create"> 201 CREATED</span> 
+            `201 CREATED` 
             para um novo **Id**.
             ```JSON     
 
             ```
              **Ou:**\
-            <span class="ok"> 200 OK</span> para um **Id** existente.
+            `200 OK` para um **Id** existente.
             ```JSON
             
             ```            
 
     - **Tempo da volta:**
         - **Endpoint:**\
-            <span class="endpoint">PUT</span>&nbsp;
-            <span class="endpoint"> /lap/times</span>
+            `PUT /lap/times`
         - **Corpo da mensagem:**
             ```JSON
 
             ```
         - **Resposta:**\
-            <span class="create"> 201 CREATED</span> 
+            `201 CREATED` 
             para um novo **Id**.
             ```JSON     
 
             ```
              **Ou:**\
-            <span class="ok"> 200 OK</span> para um **Id** existente.
+            `200 OK` para um **Id** existente.
             ```JSON
             
             ```            
