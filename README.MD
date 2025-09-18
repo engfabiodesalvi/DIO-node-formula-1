@@ -60,12 +60,12 @@ Já para o **Bearer Token** enviado incorretamente é retornado o código **401 
 
 ### Resuisição GET (List)
 
-A requisição **GET** retorna um objeto contendo na chave (*key*) o nome da base de dados que foi requisitado e no campo valor (*value*) retorna um vetor com os registros encontrados nesta base de dados. 
-Se houver registros é retornado o código **200 OK**.
-Caso não houver registros é retornado o código **404 NOT FOUND**.
+A requisição **GET** retorna um objeto contendo na chave (*key*) o nome da base de dados que foi requisitado e no campo valor (*value*) retorna um vetor com os registros encontrados nesta base de dados.\
+Se houver registros é retornado o código **200 OK**.\
+Caso não houver registros é retornado o código **404 NOT FOUND**.\
 Pode-se utilizar a ***query string***, formada pelos ***quey parameters***, para selecinar os registros a serem retornados.\
-A ***query string*** é enviada na **URL** após o símbolo **?**.
-Também pose-se utilizar a busca por um determinado **Id** utlizando o **endpoint** juntamente com o **Id** do registro desejado.
+A ***query string*** é enviada na **URL** após o símbolo **?**.\
+Também pose-se utilizar a busca por um determinado **Id** utlizando o **endpoint** juntamente com o **Id** do registro desejado.\
 As três abordagens de requisição de dados estão exemplificadas abaixo.
 
 
@@ -99,7 +99,7 @@ As três abordagens de requisição de dados estão exemplificadas abaixo.
     - **Construtores:**
         - **Endpoint:**\
             `GET /constructors`    
-        - **Resposta:** \
+        - **Resposta:**\
              `200 OK` (Apenas o primeiro item)
             ```JSON
             {
@@ -407,8 +407,10 @@ As três abordagens de requisição de dados estão exemplificadas abaixo.
 A requisição **POST** insere um item na base de dados desejada.\
 O item enviado deve possuir todos os campos preenchidos com o seu devido tipo de dado.\
 Este item só será inserido na base de dados após uma verificação do tipo de dado de cada campo e se todos os campos deste item foram enviados.\
-Se não houver problemas o item é inserido na base de dados e o código **201 CREATED** é retornado junto com um objeto com a mensagem **{item} inserted!** e com os dados do item inserido.
+Se não houver problemas o item é inserido na base de dados e o código **201 CREATED** é retornado junto com um objeto com a mensagem **{item} inserted!** e com os dados do item inserido.\
 Abaixo temos um exemplo para uma tentativa bem sucedida de inserir um item na base de dados *status*:
+
+`201 CREATED`
 ```JSON
 {
 	"message": "[statusId: 2] inserted!",
@@ -421,8 +423,10 @@ Abaixo temos um exemplo para uma tentativa bem sucedida de inserir um item na ba
 }
 ```
 Caso o id do item enviado seja igual ao id de algum item do banco de dados é retornado o código **409 CONFLICT** com um ojeto contendo uma mensagem **{item} already created!** e os dodos item já inserido.\
-Algumas bases de dados possuem mais de um id para identificar os item na base de dados.
+Algumas bases de dados possuem mais de um id para identificar os item na base de dados.\
 Abaixo temos um exemplo para uma tentativa de inserir um item já existente na base de dados *status*:
+
+`409 CONFLICT`
 ```JSON
 {
 	"message": "[statusId: 2] already created!",
@@ -987,7 +991,7 @@ Abaixo temos um exemplo para uma tentativa de inserir um item já existente na b
 
 A requisição **PUT** insere um item que tenha um **Id** não cadastrado na base de dados desejada ou edita um item que tenha o mesmo **Id** cadastrado na base de dados desejada.\
 Este item só será inserido ou editado na base de dados após uma verificação do tipo de dado de cada campo e se todos os campos deste item foram enviados.\
-Se o **Id** do item não estiver cadastrado na base de dados, e não houver problemas com os campos do item, este item será inserido na base de dados e o código `201 CREATED` será retornado junto com um objeto formado com a mensagem **{itemId} inserted!** e com os dados do item inserido.
+Se o **Id** do item não estiver cadastrado na base de dados, e não houver problemas com os campos do item, este item será inserido na base de dados e o código `201 CREATED` será retornado junto com um objeto formado com a mensagem **{itemId} inserted!** e com os dados do item inserido.\
 Abaixo temos um exemplo para uma tentativa bem sucedida de inserir ou editar um item na base de dados onde o **Id** do item não esta cadastrado na base de dados *circuits*:
 ```JSON
 {
