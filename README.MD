@@ -1079,13 +1079,17 @@ Abaixo temos um exemplo para uma tentativa bem sucedida de inserir ou editar um 
                     },    
             }
             ```
-        - **Resposta:**\
+        - **Resposta:**        
+            <table>
+            <tbody>
+            <tr>
+            <td>
             <span class="create"> 201 CREATED</span> 
             para um novo **Id**.
             ```JSON
             "message": "[circuitId: 1] inserted!"
             ```
-             **Ou:**\
+            **Ou:**\
             <span class="ok"> 200 OK</span> para um **Id** existente.
             ```JSON
             "message": "[circuitId: 1] edited!"            
@@ -1103,7 +1107,14 @@ Abaixo temos um exemplo para uma tentativa bem sucedida de inserir ou editar um 
                 "alt": 10,
                 "url": "http://en.wikipedia.org/wiki/Melbourne_Grand_Prix_Circuit"
             }         
-            ```              
+            ```    
+            </td>
+            <td>
+            
+            </td>
+            </tr>
+            </tbody>
+            </table>          
 
 
     - **Construtores:**
